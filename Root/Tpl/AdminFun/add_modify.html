@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<include file='Public/index_css'/>
+<title>LAMP9时效管理工具</title>
+</head>
+<body>
+<div class="container-fluid">
+	<include file='Public/adminFun_nav'/>
+	<div class="row clearfix">
+		<div class="col-md-12 column">
+			<form method="post" action="__URL__-add_modify_down" id="form">
+			<input type="hidden" name="mode" value="<{$action}>"/>
+			<h3><strong>单词</strong></h3>
+			<table class="table table-hover">
+				<tbody>
+					<tr>
+						<td>ID</td>
+						<td><input type="hidden" name="id" value="<{$v.id}>"/>
+						<input type="text" class="form-control" value="<{$v.id}>" disabled></td>
+					</tr>
+					<tr>
+						<td>EN</td>
+						<td><input type="text" class="form-control" name="en" value="<{$v.en}>"></td>
+					</tr>
+					<tr>
+						<td>SYMBOL</td>
+						<td><input type="text" class="form-control" name="symbol" value="<{$v.symbol}>"></td>
+					</tr>
+					<tr>
+						<td>CN</td>
+						<td><input type="text" class="form-control" name="cn" value="<{$v.cn}>"></td>
+					</tr>
+				</tbody>
+				<tfoot><tr><td colspan="10"><button type="submit" class="btn btn-success">提交</button></td></tr></tfoot>
+			</table>
+			</form>
+		</div>
+	</div>
+</div>
+</body>
+</html>

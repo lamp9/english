@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<include file='Public/index_css'/>
+<title>用户添加/修改</title>
+</head>
+<body>
+<div class="container-fluid">
+	<include file='Public/adminFun_nav'/>
+	<div class="row clearfix">
+		<div class="col-md-12 column">
+			<form method="post" action="__URL__-add_modify_down" id="form">
+			<input type="hidden" name="mode" value="<{$action}>"/>
+			<h3><strong>用户添加/修改</strong></h3>
+			<table class="table table-hover">
+				<tbody>
+					<tr>
+						<td>ID</td>
+						<td><input type="hidden" name="id" value="<{$v.id}>"/>
+						<input type="text" class="form-control" value="<{$v.id}>" disabled></td>
+					</tr>
+					<tr>
+						<td>NAME</td>
+						<td><input type="text" class="form-control" name="name" value="<{$v.name}>"></td>
+					</tr>
+					<tr>
+						<td>PWD</td>
+						<td><input type="text" class="form-control" name="pwd" value=""></td>
+					</tr>
+					<tr>
+						<td>RNAME</td>
+						<td><input type="text" class="form-control" name="rname" value="<{$v.rname}>"></td>
+					</tr>
+
+					<tr>
+						<td>Contact</td>
+						<td><input type="text" class="form-control" name="contact" value="<{$v.contact}>"></td>
+					</tr>
+					<tr>
+						<td>Level</td>
+						<td><input type="text" class="form-control" name="level" value="<{$v.level}>"></td>
+					</tr>
+					<tr>
+						<td>BOOT</td>
+						<td><input type="text" class="form-control" name="boot" value="<{$v.boot}>"></td>
+					</tr>
+				</tbody>
+				<tfoot><tr><td colspan="10"><button type="submit" class="btn btn-success">提交</button></td></tr></tfoot>
+			</table>
+			</form>
+		</div>
+	</div>
+</div>
+</body>
+</html>

@@ -1,0 +1,18 @@
+<div class="form-group navbar-form navbar-left">
+	<select class="form-control" >
+	<option value="0">所有随机</option>
+	<php>$english_set = ToolsAction::return_all(M('english_set'), false, array('id', 'title'), false, false);</php>
+	<foreach name='english_set' item='es'>
+	<option value="<{$es.id}>"><{$es.title}></option>
+	</foreach>
+	</select>
+	<button type="submit" class="btn btn-default" onClick="rand_word($($(this).prev()).val());">GO!</button>
+	<script>
+	function rand_word(val){
+		var url = '';
+		if(val == 0) url = '__APP__/Login-rand_word';
+		else url = '/Public/en_set/' + val + '.html';
+		location.href = url;
+	}
+	</script>
+</div>

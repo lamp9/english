@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<include file='Public/index_css'/>
+<title>英语大类-添加</title>
+</head>
+<body>
+<div class="container-fluid">
+	<include file='Public/adminFun_nav'/>
+	<div class="row clearfix">
+		<div class="col-md-12 column">
+			<form method="post" action="__URL__-add_modify_down" id="form">
+			<input type="hidden" name="mode" value="<{$action}>"/>
+			<h3><strong>英语大类</strong></h3>
+			<table class="table table-hover">
+				<tbody>
+					<tr>
+						<td>ID</td>
+						<td><input type="hidden" name="id" value="<{$v.id}>"/>
+						<input type="text" class="form-control" value="<{$v.id}>" disabled></td>
+					</tr>
+					<tr>
+						<td>TITLE</td>
+						<td><input type="text" class="form-control" name="title" value="<{$v.title}>"></td>
+					</tr>
+					<tr>
+						<td>URL</td>
+						<td><input type="text" class="form-control" name="url" value="<{$v.url}>"></td>
+					</tr>
+				</tbody>
+				<tfoot><tr><td colspan="10"><button type="submit" class="btn btn-success">提交</button></td></tr></tfoot>
+			</table>
+			</form>
+		</div>
+	</div>
+</div>
+</body>
+</html>

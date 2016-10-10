@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<include file='Public/index_css'/>
+<title>LAMP9时效管理工具</title>
+</head>
+<body>
+<div class="container-fluid">
+	<include file='Public/englisth_book_nav_show'/>
+	<div class="row clearfix">
+		<div class="col-md-12 column">
+			<form method="post" action="" id="form">
+			<h3><strong>用户信息</strong></h3>
+			<table class="table table-hover">
+				<tbody>
+					<tr>
+						<td>NAME</td>
+						<td><input type="text" class="form-control" value="<{$v.name}>" disabled></td>
+					</tr>
+					<tr>
+						<td>PWD</td>
+						<td><input type="password" class="form-control" name="pwd"></td>
+					</tr>
+					<tr>
+						<td>PWD_CONFIRM</td>
+						<td><input type="password" class="form-control" name="pwd2"></td>
+					</tr>
+				</tbody>
+				<tfoot><tr><td colspan="10"><button type="submit" class="btn btn-success">提交</button></td></tr></tfoot>
+			</table>
+			</form>
+		</div>
+	</div>
+</div>
+</body>
+</html>

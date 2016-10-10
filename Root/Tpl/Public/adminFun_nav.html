@@ -1,0 +1,60 @@
+<div class="row clearfix">
+	<div class="col-md-12 column">
+		<nav class="navbar navbar-default <!--navbar-fixed-bottom-->" role="navigation">
+			<div class="navbar-header">
+				<button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1"> <span class="sr-only">切换导航</span><span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span></button>
+				<a class="navbar-brand" href="/">LAMP9 - <php>echo session('name');</php></a></div>
+			<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+				<ul class="nav navbar-nav">
+					<li> <a href="__APP__/AdminFun">单词</a></li>
+					<li class="dropdown"> <a href="#" class="dropdown-toggle" data-toggle="dropdown">单词库<strong class="caret"></strong></a>
+						<ul class="dropdown-menu">
+							<li> <a href="__APP__/AdminFun-add_modify"><i class="fa fa-plus"></i>增加</a></li>
+							<li> <a href="__APP__/AdminFun-add_queue"><i class="fa fa-plus"></i>批量增加</a></li>
+							<li> <a href="__APP__/AdminFun-add_queue_log"><i class="fa fa-book"></i>批量日志</a></li>
+							<li class="divider"> </li>
+							<li> <a href="__APP__/AdminFun-sync_data">数据同步</a></li>
+						</ul>
+					</li>
+
+					<li class="dropdown"> <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-book"></i>书籍<strong class="caret"></strong></a>
+						<ul class="dropdown-menu">
+							<li> <a href="__APP__/English_sort">书籍分类</a></li>
+							<li><a href="__APP__/English_sort-add_modify"><i class="fa fa-plus"></i>书籍分类</a></li>
+							<li> <a href="__APP__/English_book">书籍</a></li>
+							<li><a href="__APP__/English_book-add_modify"><i class="fa fa-plus"></i>书籍</a></li>
+							<li class="divider"> </li>
+							<li> <a href="__APP__/English_set">单词集</a></li>
+							<li> <a href="__APP__/English_set-add_modify"><i class="fa fa-plus"></i>单词集</a></li>
+						</ul>
+					</li>
+				</ul>
+				<include file="Public/rand_word"/>
+				<form class="navbar-form navbar-left" role="search" method="post" action="__URL__-search_word">
+					<div class="form-group">
+						<input type="text" class="form-control" name='search_word' placeholder="搜索" value="<php>echo cookie('search_word');</php>"/>
+					</div>
+					<button type="submit" class="btn btn-default">搜索</button>
+				</form>
+				<ul class="nav navbar-nav navbar-right">
+					<li> <a href="javascript:;" onClick="if(confirm('确认要批量删除吗？'))$('#list').attr('action', '__URL__-del_batch').submit();"><i class="fa fa-times"></i>删除</a> </li>
+					<li class="dropdown"> <a href="#" class="dropdown-toggle" data-toggle="dropdown">用户管理<strong class="caret"></strong></a>
+						<ul class="dropdown-menu">
+							<li> <a href="__APP__/User-index"><i class="fa "></i>管理</a> </li>
+							<li> <a href="__APP__/User-add_modify"><i class="fa fa-plus"></i>增加</a> </li>
+						</ul>
+					</li>
+					<li class="dropdown"> <a href="#" class="dropdown-toggle" data-toggle="dropdown">系统<strong class="caret"></strong></a>
+						<ul class="dropdown-menu">
+							<li> <a href="__APP__/English_book_collect"><i class="fa "></i>收藏</a> </li>
+							<li class="divider"> </li>
+							<li> <a href="__APP__/AdminFun-admin_set"><i class="fa "></i>设置</a> </li>
+							<li class="divider"> </li>
+							<li> <a href="__APP__/Login-logout"><i class="fa "></i>注销</a> </li>
+						</ul>
+					</li>
+				</ul>
+			</div>
+		</nav>
+	</div>
+</div>

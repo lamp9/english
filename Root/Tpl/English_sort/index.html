@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<include file='Public/index_css'/>
+<title>书籍分类</title>
+</head>
+<body>
+<div class="container-fluid">
+	<include file='Public/adminFun_nav'/>
+	<div class="row clearfix">
+		<div class="col-md-12 column">
+			<form method="post" action="" id="list">
+			<table class="table table-hover">
+				<thead>
+					<tr>
+						<th><input type="checkbox" onClick="list_check(this, '#list input[name=id\\[\\]]');"/></th>
+						<th>ID</th>
+						<th>TITLE</th>
+						<th>URL</th>
+						<th>操作</th>
+					</tr>
+				</thead>
+				<tbody>
+					<foreach name='list' item='v'>
+					<tr>
+						<td><input type="checkbox" name="id[]" value="<{$v.id}>"/></td>
+						<td class="text-right"><{$v.id}></td>
+						<td><a href="__URL__-add_modify-id-<{$v.id}>"><{$v.title}></a></td>
+						<td><a href="<{$v.url}>"><{$v.url}></a></td>
+						<td><a href="__URL__-add_modify-id-<{$v.id}>" class="btn btn-default btn-sm"><i class="fa fa-wrench"></i></a>
+							<a href="javascript:delete_confirm('<{$v.id}>');" class="btn btn-default btn-sm"><i class="fa fa-trash-o"></i></a></td>
+					</tr>
+					</foreach>
+				</tbody>
+			</table>
+			</form>
+		</div>
+		<div class="col-md-12 column"><ul class="pagination"><{$show}></ul></div>
+	</div>
+</div>
+<script>
+function list_check(sym, name){
+	$(name).each(function(index){
+		this.checked = sym.checked;
+	});
+}
+function delete_confirm(id){
+	if(confirm("确认要删除吗？")){
+		location.href = '__URL__-del-id-' + id;
+	}
+}
+</script>
+</body>
+</html>

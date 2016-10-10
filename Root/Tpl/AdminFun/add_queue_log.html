@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<include file='Public/index_css'/>
+<title>批量日志 - LAMP9印象英语</title>
+</head>
+<body>
+<div class="container-fluid">
+	<include file='Public/adminFun_nav'/>
+	<div class="row clearfix">
+		<div class="col-md-12 column">
+			<form method="post" action="" id="list">
+			<table class="table table-hover">
+				<thead>
+					<tr>
+						<th>ID</th>
+						<th>TIME</th>
+						<th>INIT</th>
+						<th>INIT_COUNT</th>
+						<th>LOAD</th>
+					</tr>
+				</thead>
+				<tbody>
+					<foreach name='list' item='v'>
+					<tr>
+						<td class="text-right"><{$v.id}></td>
+						<td><{$v.time}></td>
+						<td><{$v.queue_str}></td>
+						<td><php>echo count(explode(',', $v['queue_str'])) - 1;</php></td>
+						<td><{$v.queue_str_id}></td>
+					</tr>
+					</foreach>
+				</tbody>
+			</table>
+			</form>
+		</div>
+		<div class="col-md-12 column"><ul class="pagination"><{$show}></ul></div>
+	</div>
+</div>
+</body>
+</html>

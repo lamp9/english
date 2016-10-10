@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<include file='Public/index_css'/>
+<title>词库 - LAMP9印象英语</title>
+</head>
+<body>
+<php>$config = get_config();
+	$url = $config['search_word_voice_from_url'];
+	$search = $config['search_word_from_url'];
+</php>
+<div class="container-fluid">
+	<include file='Public/englisth_book_nav_show'/>
+	<div class="row clearfix">
+		<div class="col-md-12 column">
+			<form method="post" action="" id="list">
+			<table class="table table-hover">
+				<thead>
+					<tr>
+						<th>EN</th>
+						<th>SYMBOL</th>
+						<th>CN</th>
+					</tr>
+				</thead>
+				<tbody>
+					<foreach name='list' item='v'>
+					<tr>
+						<td><a href="<{$v.en|sprintf=$search,###}>" target="_blank"><{$v.en}></a></td>
+						<td><{$v.symbol}></td>
+						<td><{$v.cn}></td>
+					</tr>
+					</foreach>
+				</tbody>
+			</table>
+			</form>
+		</div>
+		<div class="col-md-12 column"><ul class="pagination"><{$show}></ul></div>
+	</div>
+</div>
+<script>
+function list_check(sym, name){
+	$(name).each(function(index){
+		this.checked = sym.checked;
+	});
+}
+function delete_confirm(id){
+	if(confirm("确认要删除吗？")){
+		location.href = '__URL__-del-id-' + id;
+	}
+}
+</script>
+</body>
+</html>

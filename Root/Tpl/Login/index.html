@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<include file='Public/index_css'/>
+<title>LAMP9时效管理工具 - 登录</title>
+</head>
+<body>
+<div class="container">
+	<div class="row clearfix">&nbsp;</div>
+	<form method="post" action="__URL__-check">
+	<div class="row clearfix">
+		<div class="col-md-12 column">
+			<div class="form-group">
+				<div class="input-group">
+					<div class="input-group-addon">用户名</div>
+					<input type="text" class="form-control" name="name">
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="row clearfix">
+		<div class="col-md-12 column">
+			<div class="form-group">
+				<div class="input-group">
+					<div class="input-group-addon">密　码</div>
+					<input type="password" class="form-control" name="pwd">
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="row clearfix">
+		<div class="col-md-12 column">
+			<div class="form-group">
+				<div class="input-group">
+					<div class="input-group-addon" style="height:40px;">验证码</div>
+					<input class="form-control" type="text" name="code" style="height:40px;">
+					<div class="input-group-addon" style="height:40px;"><img src='__URL__-verify' onclick='this.src=this.src+"?"+Math.random()' height="25" /></div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="row clearfix">
+		<div class="col-md-12 column">
+			<div class="form-group">
+				<div class="input-group">
+					<label><input type="checkbox" name="online" value="1">三天内免登录</label>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="row clearfix">
+		<div class="col-md-12 column">
+			<div class="form-group">
+				<div class="input-group">
+					<button type="submit" class="btn btn-primary">登录</button>&nbsp;&nbsp;
+					<a class="btn btn-success" href='__URL__-register'>注册<a/>
+					<a class="btn btn-success" href='__APP__'>PLAY<a/>
+				</div>
+			</div>
+		</div>
+	</div>
+	</form>
+</div>
+</body>
+</html>

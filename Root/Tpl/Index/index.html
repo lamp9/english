@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<include file='Public/index_css'/>
+<title>书籍</title>
+</head>
+<body>
+<div class="container-fluid">
+	<include file='Public/englisth_book_nav_show'/>
+	<div class="row clearfix">
+		<div class="col-md-12 column">
+			<form method="post" action="" id="list">
+			<table class="table table-hover">
+				<thead>
+					<tr>
+						<th><input type="checkbox" onClick="list_check(this, '#list input[name=id\\[\\]]');"/></th>
+						<th>ID</th>
+						<th>分类</th>
+						<th>书名</th>
+						<th>章节</th>
+						<th>单词</th>
+						<th>链接</th>
+						<th>操作</th>
+					</tr>
+				</thead>
+				<tbody>
+					<foreach name='list' item='v'>
+					<tr>
+						<td><input type="checkbox" name="id[]" value="<{$v.id}>"/></td>
+						<td class="text-right" width="100"><{$v.id}></td>
+						<td><{$v.stitle}></td>
+						<td><a href="__URL__-book-sid-<{$v.id}>" target="_blank"><{$v.title}></a></td>
+						<td class="text-right"><{$v.en_chapter_count}></td>
+						<td class="text-right"><{$v.en_count}></td>
+						<td><a href="<{$v.url}>" target="_blank"><{$v.url}></a></td>
+						<td>
+							<a href="javascript:;" onclick="book_collect(this, '<{$v.id}>');">收藏</a>
+							<a href="__URL__-book-sid-<{$v.id}>" target="_blank">查看</a>
+						</td>
+					</tr>
+					</foreach>
+				</tbody>
+			</table>
+			</form>
+		</div>
+		<div class="col-md-12 column"><ul class="pagination"><{$show}></ul></div>
+	</div>
+</div>
+<script>
+function book_collect(obj, id){
+	$.ajax({
+		url: '__APP__/English_book_collect-add',
+		type: 'POST',
+		data: {
+			bid	: id,
+		},
+		dataType: 'json',
+		timeout: 10000,//1000毫秒后超时
+		cache: false,//不缓存数据
+		async: false,//同步：false,异步：true,默认true
+		success: function(data){
+			if('T' == data.code){
+				alert(data.info);
+				$(obj).remove();
+			} else {
+				alert(data.info);
+			}
+		},//请求成功后执行
+	});
+}
+function list_check(sym, name){
+	$(name).each(function(index){
+		this.checked = sym.checked;
+	});
+}
+function delete_confirm(id){
+	if(confirm("确认要删除吗？")){
+		location.href = '__URL__-del-id-' + id;
+	}
+}
+</script>
+</body>
+</html>

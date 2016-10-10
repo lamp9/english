@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<include file='Public/index_css'/>
+<script src="__PUBLIC__/js/jquery.1.4.2-min.js"></script>
+<script src="__PUBLIC__/js/jquery.color.js"></script>
+<script src="__PUBLIC__/js/cookies.js"></script>
+<title>
+	<if condition='$book'><{$book}> - </if>
+	<if condition='$find'><{$find.title}> - </if>LAMP9印象英语</title>
+</head>
+<body>
+<div class="container-fluid" style="padding: 0px;">
+	<div class="row clearfix" style="position:fixed;bottom:0;margin-bottom:0;background-color:#303030;z-index:100;color:#fff;">
+		<!--<div class="col-md-12 column" id="time_count_set_div">
+		<ul class="list-inline list-unstyled">
+			<li><label><input type="checkbox" name="time_en_play_second_switch"> 开启单词播放间隔</label></li>
+			<li>秒数 <input type="text" name="time_en_play_second" class="form-control"/></li>
+			<li>播放推迟秒数 <input type="text" name="time_en_play_second_delay" class="form-control"/></li>
+			<li><button class="btn btn-success" onClick="time_en_play_second_set(true);">Set</button></li>
+			<br><br>
+
+			<li>单词数 <input type="text" name="count" class="form-control"/></li>
+			<li>秒数 <input type="text" name="time" class="form-control"/></li>
+			<li><button class="btn btn-success" onClick="time_reset(true);">Set</button></li>
+		</ul>
+		<ul class="list-inline list-unstyled" id="on_off_button">
+			<li><a href="javascript:;" onclick="voice_en_type_set(true);" title='Voice_en_type'></a></li>
+			<li><a href="javascript:;" onclick="voice_en_set(true);" title='Voice_en'>EN <i></i></a></li>
+			<li><a href="javascript:;" onclick="voice_tips_set(true);" title='Voice_tips'><i class="fa fa-bell-o" aria-hidden="true"></i> <i></i></a></li>
+			<li><a href="javascript:;" onclick="light_tips_set(true);" title='Light_tips'><i class="fa fa-lightbulb-o"></i> <i></i></a></li>
+			<li><a href="javascript:;" onClick="location.reload();" title='Refresh'><i class="fa fa-refresh"></i></a></li>
+			<li><a href="/" title='Back'><i class="fa fa-times"></i></a></li>
+		</ul>
+		</div>-->
+		<div class="col-md-12 column">
+		<ul class="list-inline list-unstyled" id="console_button">
+			<li style="width: 100%;"><h5 id="time_process"></h5></li>
+			<li><a href="#set-container" role="button" data-toggle="modal" title='Set'><i class="fa fa-cog"></i></a></li>
+			<li><a href="javascript:;" onclick="time_reload();" title='Next'><i class="fa fa-random"></i></a></li>
+			<li><a href="javascript:;" onclick="time_play_pause();" title='Play / Pause' id='play' state='play'><i class='fa fa-play'></i></a></li>
+		</ul>
+		</div>
+	</div>
+	<div class="row clearfix" style="position:absolute; top:0px;padding-bottom: 100px;padding-left: 3px;padding-right: 3px;">
+		<div class="col-md-12 column" id="div_word"></div>
+	</div>
+	<div id="voice_en_load" style="display:none;"></div>
+	<div id="voice_en_load_tmp" style="display:none;"></div>
+</div>
+<div id="en_load_animation"></div>
+
+
+
+
+
+
+
+
+<div class="modal fade" id="set-container" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+				<h4 class="modal-title" id="myModalLabel">设置</h4>
+			</div>
+			<div class="modal-body">
+				<div class="row clearfix" id="time_count_set_div">
+					<div class="col-md-12 column">
+						<div class="tabbable" id="tabs-54515">
+							<ul class="nav nav-tabs">
+								<li class="active">
+									<a href="#play_delay" data-toggle="tab">播放间隔</a>
+								</li>
+								<li>
+									<a href="#play_word_count" data-toggle="tab">单词数</a>
+								</li>
+								<li>
+									<a href="#play_set" data-toggle="tab">开关</a>
+								</li>
+								<li>
+									<a href="#play_help" data-toggle="tab">帮助说明</a>
+								</li>
+							</ul>
+							<div class="tab-content">
+								<div class="tab-pane active" id="play_delay">
+									<p>
+									<div class="col-md-12 column">
+										<div class="input-group">
+											<span class="input-group-addon"><label><input type="checkbox" name="time_en_play_second_switch"> 播放间隔</label></span>
+											<input type="text" class="form-control" name="time_en_play_second" placeholder="秒数">
+											<span class="input-group-addon">推迟秒数</span>
+											<input type="text" name="time_en_play_second_delay" class="form-control" placeholder="秒数"/>
+											<span class="input-group-addon btn" onClick="time_en_play_second_set(true);">SET</span>
+										</div>
+									</div>
+									</p>
+								</div>
+								<div class="tab-pane" id="play_word_count">
+									<p>
+									<div class="col-md-12 column">
+										<div class="input-group">
+											<span class="input-group-addon">单词数</span>
+											<input type="text" class="form-control" name="count" placeholder="秒数">
+											<span class="input-group-addon">秒数</span>
+											<input type="text" name="time" class="form-control" placeholder="秒数"/>
+											<span class="input-group-addon btn" onClick="time_reset(true);">SET</span>
+										</div>
+									</div>
+									</p>
+								</div>
+								<div class="tab-pane" id="play_set">
+									<p>
+									<div class="col-md-12 column">
+										<ul class="list-inline list-unstyled" id="on_off_button">
+											<li><a href="javascript:;" onclick="voice_en_type_set(true);" title='Voice_en_type'></a></li>
+											<li><a href="javascript:;" onclick="voice_en_set(true);" title='Voice_en'>EN <i></i></a></li>
+											<li><a href="javascript:;" onclick="voice_tips_set(true);" title='Voice_tips'><i class="fa fa-bell-o" aria-hidden="true"></i> <i></i></a></li>
+											<li><a href="javascript:;" onclick="light_tips_set(true);" title='Light_tips'><i class="fa fa-lightbulb-o"></i> <i></i></a></li>
+											<li><a href="javascript:;" onClick="location.reload();" title='Refresh'><i class="fa fa-refresh"></i></a></li>
+											<li><a href="/" title='Back'><i class="fa fa-times"></i></a></li>
+										</ul>
+									</div>
+									</p>
+								</div>
+								<div class="tab-pane" id="play_help">
+									<p>
+									<table class="table table-hover table-condensed">
+										<thead>
+										<tr><th>按键</th><th>操作</th></tr>
+										</thead>
+										<tbody>
+										<tr><td>Enter</td><td>播放/暂停</td></tr>
+										<tr><td>空格</td><td>下一组</td></tr>
+										<tr><td>V</td><td>声音提示开关</td></tr>
+										<tr><td>T</td><td>英式/美式 发音</td></tr>
+										<tr><td>E</td><td>发音开关</td></tr>
+										<tr><td>L</td><td>闪光提示</td></tr>
+										</tbody>
+									</table>
+									</p>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+				<!--<button type="button" class="btn btn-primary">保存</button>-->
+			</div>
+		</div>
+	</div>
+</div>
+<div class="alert alert-success" role="alert" id="show_ok">OK!</div>
+</body>
+</html>
+<style>
+body{background-color: #303030;}
+.row{width:100%;margin: 0px;}
+.input-group{position: static;; float: left;width:180px;}
+#div_word{padding: 0px; margin: 0 3px;}
+#div_word span{cursor: pointer;}
+@media all and (max-width: 768px) and (min-width: 0px) {
+	#div_word .list-group{padding:0px;margin:5px 3px; max-width: 100%;}
+}
+@media all and (min-width: 769px) {
+	#div_word .list-group{padding:0px;margin:5px 3px;min-width: 370px;max-width:19%;position: absolute;}
+}
+
+#time_count_set_div{padding-top:10px;}
+#time_count_set_div input[type=text]{display: inline-block; width:60px;}
+#time_count_set_div .col-md-12{padding-bottom: 15px;}
+#on_off_button{font-size: 18px;}
+
+#show_ok{position: fixed;display: none;z-index: 1051;}
+#console_button{margin-bottom: 0px;}
+#console_button li{width:32%;padding: 0px;text-align: center;font-size:24px;}
+
+#en_load_animation{position: fixed;width: 100%;
+	height: 100%;
+	background-color: #3a70a4;z-index: 1000;
+	background-image: url(/Public/image/loading-1.gif);background-position: center;
+	background-repeat: no-repeat;background-attachment: fixed;
+	filter:alpha(opacity=60);  /* ie 有效*/
+	-moz-opacity:0.6; /* Firefox  有效*/
+	opacity: 0.6; /* 通用，其他浏览器  有效*/
+	background:-webkit-gradient(linear, 0 0, 0 100%, from(#3a70a4), to(＃3a70a3));
+	background:-moz-linear-gradient(top, ＃3a70a4,＃3a70a3);
+	filter:progid:DXImageTransform.Microsoft.gradient(startColorstr=＃3a70a4,endColorstr=＃3a70a3,grandientType=1);
+}
+</style>
+<script>
+<php>$config = get_config();
+$url = $config['search_word_voice_from_url'];
+$search = $config['search_word_from_url'];
+</php>
+//语音播放url
+var en_search_from = '<{$search}>';
+var voice_en_url = '<{$url}>';
+//提示音播放路径
+var path_voice_tips = '__PUBLIC__/voice/';
+//单词数据文件
+var data_position = '<{$data_position}>';
+var data_url = '__URL__-rand_word_json';
+</script>
+<script src="__PUBLIC__/js/rand_word/init.js"></script>
+<script src="__PUBLIC__/js/rand_word/common.js"></script>
+<script src="__PUBLIC__/js/rand_word/audio_en.js"></script>
+<script src="__PUBLIC__/js/rand_word/audio_voice_tips.js"></script>
+<script src="__PUBLIC__/js/rand_word/light_tips.js"></script>
+<script src="__PUBLIC__/js/rand_word/rand_word.js"></script>
+<script src="__PUBLIC__/js/rand_word/time_go.js"></script>
+<script src="__PUBLIC__/js/rand_word/time_reset.js"></script>
+<script src="__PUBLIC__/js/rand_word/time_play_pause.js"></script>
+<script src="__PUBLIC__/js/rand_word/waterfall.js"></script>
+<script>var cnzz_protocol = (("https:" == document.location.protocol) ? " https://" : " http://");document.write(unescape("%3Cspan id='cnzz_stat_icon_1259186236'%3E%3C/span%3E%3Cscript src='" + cnzz_protocol + "s11.cnzz.com/z_stat.php%3Fid%3D1259186236' type='text/javascript'%3E%3C/script%3E"));</script>
+<script>
+$(function(){
+	$('#cnzz_stat_icon_1259186236').hide();
+
+	var left_position = (document.body.clientWidth / 2) - 28;
+	var top_position = 100;
+	$('#show_ok').css('left', left_position).css('top', top_position);
+});
+function show_set_tips(){
+	var obj = $('#show_ok');
+	obj.show('normal');
+	setTimeout("$('#show_ok').hide('slow');", 1000);
+}
+</script>

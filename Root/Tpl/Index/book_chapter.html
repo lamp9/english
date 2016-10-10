@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+	<include file='Public/index_css'/>
+	<title>
+		<if condition="$sort['title']"><{$sort.title}> /</if>
+		<if condition="$book['title']"><{$book.title}></if>
+		<if condition="$chapter['title']"> / <{$chapter.title}></if>
+	</title>
+</head>
+<body>
+<php>$config = get_config();
+	$url = $config['search_word_voice_from_url'];
+	$search = $config['search_word_from_url'];
+</php>
+<div class="container-fluid">
+	<include file='Public/englisth_book_nav_show'/>
+	<div class="row clearfix">
+		<div class="col-md-12 column">
+			<form method="post" action="" id="list">
+				<table class="table table-hover" style="font-size: 18px;">
+					<thead>
+					<tr>
+						<th></th>
+						<th>EN</th>
+						<th>SYMBOL</th>
+						<th>CN</th>
+					</tr>
+					</thead>
+					<tbody id="english_list">
+					<foreach name='english' item='v'>
+						<tr>
+							<td></td>
+							<td><a href="<{$v.en|sprintf=$search,###}>"><{$v.en}></a></td>
+							<td><{$v.symbol}></td>
+							<td><{$v.cn}></td>
+						</tr>
+					</foreach>
+					</tbody>
+				</table>
+			</form>
+		</div>
+		<div class="col-md-12 column">
+			<ul class="pagination"></ul>
+		</div>
+	</div>
+</div>
+<div id="voice_en_load_tmp" style="display:none;"></div>
+<script src="__PUBLIC__/js/rand_word/common.js"></script>
+<script src="__PUBLIC__/js/rand_word/audio_en.js"></script>
+<script>
+//语音播放url
+var en_search_from = '<{$search}>';
+var voice_en_url = '<{$url}>';
+var obj;
+var english_list;
+var count;
+var pagesize = 20;
+var pagetotal;
+$(function(){
+	obj = $('#english_list');
+	english_list = <{$english_json}>;
+
+	count = english_list.length;
+	pagetotal = parseInt(count / pagesize);
+	if(count % pagesize > 0) pagetotal++;
+
+	show_page(1);
+
+});
+function show_page(page){
+	var html = '<li><a href="#"><font color="#009900"><b>' + count + '</b></font> 词 </a></li>';
+	for(var i = 1; i <= pagetotal; i++){
+		if(page == i) html += '<li class=active>';
+		else html += '<li>';
+		html += '<a href="javascript:show_page(' + i + ');">';
+		html += i;
+		html += '</a></li>';
+	}
+	$('.pagination').html(html);
+
+	var max = page * pagesize;
+	var min = max - pagesize;
+
+	if(min < 0) min = 0;
+	var page_list = (max >= count) ? english_list.slice(min) : english_list.slice(min, max);
+
+	var html = '';
+	for(var i = 0; i < page_list.length; i++){
+		var en = page_list[i];
+		html += '<tr><td>' + (i + 1) + '</td>';
+		html += '<td><a href="' + sprintf(en_search_from, en.en) + '" target=_blank>' + en.en + '</a></td>';
+		var symbol = en.symbol.split('$$');
+
+		html += '<td><a href="javascript:;" class=en index=' + i + ' data="' + en.en + '" type=1>' + symbol[0] + '</a>&nbsp;&nbsp;';
+		html += '<a href="javascript:;" class=en index=' + i + ' data="' + en.en + '" type=2>' + symbol[1] + '</a></td>';
+		html += '<td>' + en.cn + '</td></tr>';
+	}
+	obj.html(html);
+
+	play_word_set_for_chapter();
+
+}
+
+function play_word_set_for_chapter(){
+	$('.en').click(function(){
+		var en = $(this);
+		var word = en.attr('data');
+		var type = en.attr('type');
+		var index = en.attr('index');
+		play_word(word, type, index);
+	});
+	$('.en').hover(function(){
+		$(this).css('color', '#ccc');
+	},function(){
+		$(this).css('color', '#337ab7');
+	});
+}
+</script>
+</body>
+</html>
