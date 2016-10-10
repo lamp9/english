@@ -41,6 +41,7 @@ function disableRefresh(evt){
 		if(code == 86) $('[title=Voice_tips]').click();//V
 		if(code == 84) $('[title=Voice_en_type]').click();//T
 		if(code == 69) $('[title=Voice_en]').click();//E
+		if(code == 82) $('[title=Voice_en_pause]').click();//R
 		if(code == 76) $('[title=Light_tips]').click();//L
 		console.log(code);
 	}

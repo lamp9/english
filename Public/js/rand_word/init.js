@@ -9,6 +9,7 @@ $(function(){
 
 	voice_en_type_set(false);
 	voice_en_set(false);
+	voice_en_pause_set(false);
 
 	time_en_play_second_set(false);
 

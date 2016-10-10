@@ -2,6 +2,9 @@
 var cookies_voice_en_type = 'voice_en_type';
 //是否开启语音cookie-key
 var cookies_voice_en = 'voice_en';
+//是否开启语音cookie-key(暂停时)
+var cookies_voice_en_pause = 'voice_en_pause';
+
 
 //暂停时的秒数
 var current_second = 0;
@@ -26,6 +29,7 @@ function voice_en_play(time_now, time_total, state){
 			if(time_now % second == 0) var index = time_now / second;
 			else return;
 		} else {
+			if(voice_en_pause != 1) return;
 			current_second++;
 			var total_second = (time_en_play_second_switch == 1) ? count * time_en_play_second : count * 2;
 			var second = parseInt(total_second / count);
@@ -81,6 +85,25 @@ function voice_en_set(sym){
 		set_cookie(cookies_voice_en, voice_en, cookies_tmp_day);
 	} else {
 		var vclass = (voice_en == 1) ? 'fa fa-volume-up' : 'fa fa-volume-off';
+	}
+	button.attr('class', vclass);
+}
+
+//是否开启语音(暂停时)
+var voice_en_pause = get_cookie(cookies_voice_en_pause);
+//语音播放开启设置(暂停时)
+function voice_en_pause_set(sym){
+	if(voice_en_pause == null){
+		set_cookie(cookies_voice_en_pause, 1, cookies_tmp_day);
+		voice_en_pause = get_cookie(cookies_voice_en_pause);
+	}
+	var button = $($('[title=Voice_en_pause]').find('i:nth-child(1)'));
+	if(sym){
+		var vclass = (voice_en_pause == 1) ? 'fa fa-volume-off' : 'fa fa-volume-up';
+		voice_en_pause = (voice_en_pause == 1) ? 0 : 1;
+		set_cookie(cookies_voice_en_pause, voice_en_pause, cookies_tmp_day);
+	} else {
+		var vclass = (voice_en_pause == 1) ? 'fa fa-volume-up' : 'fa fa-volume-off';
 	}
 	button.attr('class', vclass);
 }
