@@ -161,6 +161,21 @@ class English_bookAction extends Action {
 		$this->display();
 	}
 
+	public function book_chapter_test(){
+		$id = $this->_get('id');
+		$sid = $this->_get('sid');
+		$this->slist = ToolsAction::return_all(M($this->table['sort']), false, false, false, false);
+		$this->book = M($this->table['book'])->find($sid);
+		$this->sort = M($this->table['sort'])->find($this->book['sid']);
+		$this->chapter = M($this->table['chapter'])->find($id);
+
+		$config = get_config();
+		$path = $config['english_chapter_json'];
+		$this->english_json = file_get_contents($path.$id.".json");
+		$this->english = json_to_array(json_decode($this->english_json));
+		$this->display();
+	}
+
 	public function book_add_modify(){
 		$id = $this->_get('id');
 		if($id != '' && $id != null){

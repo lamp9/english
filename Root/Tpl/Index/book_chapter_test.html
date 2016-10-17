@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+	<include file='Public/index_css'/>
+	<title>
+		<if condition="$sort['title']"><{$sort.title}> /</if>
+		<if condition="$book['title']"><{$book.title}></if>
+		<if condition="$chapter['title']"> / <{$chapter.title}></if>
+	</title>
+</head>
+<body>
+<div class="container-fluid">
+	<include file='Public/englisth_book_nav_show'/>
+	<div class="row clearfix" style="margin-bottom: 15px;">
+		<div class="col-md-12 column" id="showProblem"></div>
+	</div>
+	<div class="row clearfix">
+		<div class="col-md-12 column" id="showProblemSelect"></div>
+	</div>
+	<div class="row clearfix">
+		<div class="col-md-12 column">
+			<ul class="pagination">
+				<li><a href="javascript:;" id="showProcessButton" onclick="test.nextProblem();">开始</a></li>
+			</ul>
+		</div>
+	</div>
+</div>
+<div id="voice_en_load_tmp" style="display:none;"></div>
+<php>$config = get_config();
+	$url = $config['search_word_voice_from_url'];
+	$search = $config['search_word_from_url'];
+	$select_count = $config['english_chapter_test']['select_count'];
+</php>
+<script src="__PUBLIC__/js/cookies.js"></script>
+<script src="__PUBLIC__/js/jquery-plugin/juicer.js"></script>
+<script src="__PUBLIC__/js/rand_word/common.js"></script>
+<script src="__PUBLIC__/js/rand_word/audio_en.js"></script>
+<script>
+//语音播放url
+var en_search_from = '<{$search}>';
+var voice_en_url = '<{$url}>';
+$(function(){
+	test.init();
+});
+
+var test = {
+	showProcessButton : function(){
+		var obj = $('#showProcessButton');
+		obj.html('(' + (this.index + 1) + ' / ' + this.count + ') 下一题');
+	},
+	showProblem : function(){
+		var data = this.obj[this.index];
+		var obj = $('#showProblem');
+		var html = $('#showProblemTpl').html();
+		obj.html(juicer(html, data));
+
+		$('#showProblemSelect');
+
+		var arrIndex = [this.index];
+		for(var i = 1; i < this.select_count; i++){
+			var position = 0;
+			while(1){
+				var sym = true;
+				position = GetRandomNum(1, this.count) - 1;
+				for(var j = 0; j < arrIndex.length; j++){
+					if(position == arrIndex[j]) sym = false;
+				}
+				if(sym) break;
+			}
+			arrIndex.push(position);
+		}
+		GetRandomArr(arrIndex);
+		var html = $('#showProblemSelectTpl').html();
+		var str = '';
+		for(var i = 0; i < arrIndex.length; i++){
+			str += html.replace('${cn}', this.obj[arrIndex[i]].cn).replace('${index}', arrIndex[i]);
+		}
+		$('#showProblemSelect').html(str);
+	},
+	checkAnswer : function(index){
+		//判断答案
+		var obj = this.obj[this.index];
+		if(obj.score) return;
+		obj.score = (index == this.index) ? 'T' : 'F';
+		//显示答案
+		$('#showProblem .list-group-item-text').html(this.obj[this.index].cn).css('color', (index == this.index) ? '#000' : '#f00').show();
+	},
+	nextProblem : function(){
+		if(1 == this.testFinish) return;
+
+		if(this.index > this.count){
+			this.testFinish = 1;
+			this.index = 0;
+			//提交成绩
+			this.submitTest();
+		} else {
+			if(-1 != this.index){
+				var obj = this.obj[this.index];
+				if(!obj.score) return;
+			}
+			this.index++;
+
+			this.showProblem();
+			this.showProcessButton();
+			this.play_word_set_init();
+		}
+	},
+	showAnswer : function(){
+		if(1 != this.testFinish) return;
+
+
+
+
+	},
+	submitTest : function(){
+		$.ajax({
+			url: 'xxxxxxx',
+			type: 'post',
+			data: {
+				test : this.obj,
+			},
+			dataType: 'json',
+			timeout: 10000,
+			cache: false,//不缓存数据
+			async: false,//同步：false,异步：true,默认true
+			success: function(data){
+				switch(data.code){
+					case 'T':
+
+						break;
+					case 'F':
+						alert(data.msg);
+						break;
+					default:;
+				}
+			},
+		});
+	},
+	obj : '',
+	count : '',
+	select_count : '<{$select_count}>',
+	index : -1,
+	testFinish : 0,
+	init : function(){
+		this.obj = <php>echo $english_json</php>;
+		this.count = this.obj.length;
+		GetRandomArr(this.obj);
+		for(var i = 0; i < this.count; i++){
+			var sym = this.obj[i].symbol.split('$$');
+			this.obj[i].sym = {en : sym[0], us : sym[1]};
+			this.obj[i].index = i;
+			this.obj[i].search = sprintf(en_search_from, this.obj[i].en);
+			this.obj[i].score = null;
+		}
+		if(this.select_count > this.count) this.select_count = this.count;
+	},
+	play_word_set_init : function (){
+		$('.voice').click(function(){
+			var en = $(this);
+			var word = en.attr('data');
+			var type = en.attr('type');
+			var index = en.attr('index');
+			play_word(word, type, index);
+		});
+		$('.voice').hover(function(){
+			$(this).css('color', '#ccc');
+		},function(){
+			$(this).css('color', '#337ab7');
+		});
+	},
+};
+</script>
+<script type="text/template" id="showProblemTpl">
+	<div class="list-group-item">
+		<h4 class="list-group-item-heading">
+			<a href="${search}" target="_blank">${en}</a>&nbsp;&nbsp;
+			<span class="voice" data="${en}" type="1" index="${index}">${sym.en}</span>&nbsp;&nbsp;
+			<span class="voice" data="${en}" type="2" index="${index}">${sym.us}</span>
+		</h4>
+	<p class="list-group-item-text"></p>
+	</div>
+</script>
+<script type="text/template" id="showProblemSelectTpl">
+	<div class="list-group-item">
+		<p class="list-group-item-text" onclick="test.checkAnswer(${index});">${cn}</p>
+	</div>
+</script>
+</body>
+</html>

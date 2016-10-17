@@ -40,9 +40,9 @@ function rand_word(){
 	div_word.html(html);
 	var del_count = 0;
 	while(del_count < count){
-		for(var j = 0; j < data.length; j++){
-			if(!data[j]){
-				data.splice(j, 1);
+		for(var i = 0; i < data.length; i++){
+			if(!data[i]){
+				data.splice(i, 1);
 				del_count++;
 			}
 		}

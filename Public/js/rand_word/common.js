@@ -14,6 +14,11 @@ function GetRandomNum(Min,Max){
 	return (Min + Math.round(Rand * Range));
 }
 
+//获取随机排列的数组
+function GetRandomArr(Arr){
+	Arr.sort(function(){ return 0.5 - Math.random() });
+}
+
 //时间格式换算
 function show_time(time){
 	//time = parseInt(time / 1000);

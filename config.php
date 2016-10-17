@@ -46,6 +46,9 @@ return array(
 		'search_word_from_url'			=> 'http://dict.youdao.com/search?q=%s',
 		'search_word_voice_from_url'	=> 'http://dict.youdao.com/dictvoice?audio=%s&type=%s',
 		'english_chapter_json'			=> './Public/en_chapter/',
+		'english_chapter_test' => [
+			'select_count' => 10,
+		],
 	),
 );
 ?>

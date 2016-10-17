@@ -20,7 +20,7 @@ class IndexAction extends Action {
 	public function word(){
 		cookie($this->table['table'], 'http://'.$_SERVER['HTTP_HOST'].$_SERVER['REQUEST_URI']);
 		$table = M($this->table['table']);
-		$page = ToolsAction::return_page($table, false, 'Page', 'Ìõ¼ÇÂ¼', 20);
+		$page = ToolsAction::return_page($table, false, 'Page', '', 20);
 		$this->list = ToolsAction::return_result($table, false, false,  array('id'=>'desc'), $page);
 		$this->show = $page->show();
 		$this->slist = ToolsAction::return_all(M($this->table['sort']), false, false, false, false);
@@ -41,5 +41,9 @@ class IndexAction extends Action {
 
 	public function book_chapter(){
 		English_bookAction::book_chapter();
+	}
+
+	public function book_chapter_test(){
+		English_bookAction::book_chapter_test();
 	}
 }
