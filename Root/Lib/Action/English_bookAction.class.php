@@ -4,6 +4,7 @@ class English_bookAction extends Action {
 		'book'			=> 'English_book',
 		'sort'			=> 'English_sort',
 		'chapter'		=> 'English_chapter',
+		'test'			=> 'English_chapter_test',
 	);
 
 	/*public function book_en_count(){
@@ -162,8 +163,8 @@ class English_bookAction extends Action {
 	}
 
 	public function book_chapter_test(){
-		$id = $this->_get('id');
-		$sid = $this->_get('sid');
+		$this->id = $id = $this->_get('id');
+		$this->sid = $sid = $this->_get('sid');
 		$this->slist = ToolsAction::return_all(M($this->table['sort']), false, false, false, false);
 		$this->book = M($this->table['book'])->find($sid);
 		$this->sort = M($this->table['sort'])->find($this->book['sid']);
@@ -174,6 +175,24 @@ class English_bookAction extends Action {
 		$this->english_json = file_get_contents($path.$id.".json");
 		$this->english = json_to_array(json_decode($this->english_json));
 		$this->display();
+	}
+
+	public function book_chapter_test_submit(){
+		$post = $this->_post();
+		$count = 0;
+		foreach($post['answer'] as $answer){
+			if('T' == $answer['score']) ++$count;
+		}
+
+		$data['uid'] = session('id');
+		$data['book_id'] = $post['sid'];
+		$data['book_chapter_id'] = $post['id'];
+		$data['score'] = ($count) ? sprintf("%.2f", ($count / $post['count']) * 100) : 0;
+		$data['time'] = date('Y-m-d H:i:s', time());
+		if(M($this->table['test'])->add($data)){
+			$result = ['code' => 'T', 'result' => $data];
+		} else $result = ['code' => 'F'];
+		echo json_encode($result);
 	}
 
 	public function book_add_modify(){

@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<include file='Public/index_css'/>
+	<title>测试成绩 -
+		<if condition="$sort['title']"><{$sort.title}> /</if>
+		<if condition="$book['title']"><{$book.title}></if>
+		<if condition="$chapter['title']"> / <{$chapter.title}></if></title>
+</head>
+<body>
+<div class="container-fluid">
+	<include file='Public/adminFun_nav'/>
+	<div class="row clearfix">
+		<div class="col-md-12 column">
+			<form method="post" action="" id="list">
+				<table class="table table-hover">
+					<thead>
+					<tr>
+						<th>Score</th>
+						<th>Time</th>
+					</tr>
+					</thead>
+					<tbody>
+					<foreach name='list' item='v'>
+						<tr>
+							<td class="text-right"><{$v.score}></td>
+							<td class="text-right"><{$v.time}></td>
+						</tr>
+					</foreach>
+					</tbody>
+				</table>
+			</form>
+		</div>
+		<div class="col-md-12 column"><ul class="pagination"><{$show}></ul></div>
+	</div>
+</div>
+</body>
+</html>

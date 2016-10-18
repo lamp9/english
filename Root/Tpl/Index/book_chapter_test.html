@@ -4,6 +4,7 @@
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
 	<include file='Public/index_css'/>
 	<title>
+		测验 -
 		<if condition="$sort['title']"><{$sort.title}> /</if>
 		<if condition="$book['title']"><{$book.title}></if>
 		<if condition="$chapter['title']"> / <{$chapter.title}></if>
@@ -12,17 +13,35 @@
 <body>
 <div class="container-fluid">
 	<include file='Public/englisth_book_nav_show'/>
-	<div class="row clearfix" style="margin-bottom: 15px;">
-		<div class="col-md-12 column" id="showProblem"></div>
-	</div>
-	<div class="row clearfix">
+	<div class="row clearfix" id="showTest">
+		<div class="col-md-12 column" id="showProblem" style="margin-bottom: 15px;"></div>
 		<div class="col-md-12 column" id="showProblemSelect"></div>
-	</div>
-	<div class="row clearfix">
 		<div class="col-md-12 column">
 			<ul class="pagination">
-				<li><a href="javascript:;" id="showProcessButton" onclick="test.nextProblem();">开始</a></li>
+				<li><a href="javascript:;" id="showProcessButton" onclick="book_chapter_test.nextProblem();">开始</a></li>
 			</ul>
+		</div>
+	</div>
+
+
+	<div class="row clearfix" id="showTestScore" style="display: none;">
+		<div class="col-md-12 column">
+			<form method="post" action="" id="list">
+				<table class="table table-hover" style="font-size: 18px;">
+					<thead>
+					<tr>
+						<th></th>
+						<th>EN</th>
+						<th>SYMBOL</th>
+						<th>CN</th>
+					</tr>
+					</thead>
+					<tbody id="english_list"></tbody>
+				</table>
+			</form>
+		</div>
+		<div class="col-md-12 column">
+			<ul class="pagination" id="paginationList"></ul>
 		</div>
 	</div>
 </div>
@@ -36,140 +55,20 @@
 <script src="__PUBLIC__/js/jquery-plugin/juicer.js"></script>
 <script src="__PUBLIC__/js/rand_word/common.js"></script>
 <script src="__PUBLIC__/js/rand_word/audio_en.js"></script>
+<script src="__PUBLIC__/js/rand_word/book_chapter_obj.js"></script>
+<script src="__PUBLIC__/js/rand_word/book_chapter_test.js"></script>
 <script>
 //语音播放url
 var en_search_from = '<{$search}>';
 var voice_en_url = '<{$url}>';
 $(function(){
-	test.init();
+	book_chapter_test.id = '<{$id}>';
+	book_chapter_test.sid = '<{$sid}>';
+	book_chapter_test.obj = <php>echo $english_json</php>;
+	book_chapter_test.select_count = <php>echo $select_count</php>;
+	book_chapter_test.submitTestUrl = '__URL__-book_chapter_test_submit';
+	book_chapter_test.init();
 });
-
-var test = {
-	showProcessButton : function(){
-		var obj = $('#showProcessButton');
-		obj.html('(' + (this.index + 1) + ' / ' + this.count + ') 下一题');
-	},
-	showProblem : function(){
-		var data = this.obj[this.index];
-		var obj = $('#showProblem');
-		var html = $('#showProblemTpl').html();
-		obj.html(juicer(html, data));
-
-		$('#showProblemSelect');
-
-		var arrIndex = [this.index];
-		for(var i = 1; i < this.select_count; i++){
-			var position = 0;
-			while(1){
-				var sym = true;
-				position = GetRandomNum(1, this.count) - 1;
-				for(var j = 0; j < arrIndex.length; j++){
-					if(position == arrIndex[j]) sym = false;
-				}
-				if(sym) break;
-			}
-			arrIndex.push(position);
-		}
-		GetRandomArr(arrIndex);
-		var html = $('#showProblemSelectTpl').html();
-		var str = '';
-		for(var i = 0; i < arrIndex.length; i++){
-			str += html.replace('${cn}', this.obj[arrIndex[i]].cn).replace('${index}', arrIndex[i]);
-		}
-		$('#showProblemSelect').html(str);
-	},
-	checkAnswer : function(index){
-		//判断答案
-		var obj = this.obj[this.index];
-		if(obj.score) return;
-		obj.score = (index == this.index) ? 'T' : 'F';
-		//显示答案
-		$('#showProblem .list-group-item-text').html(this.obj[this.index].cn).css('color', (index == this.index) ? '#000' : '#f00').show();
-	},
-	nextProblem : function(){
-		if(1 == this.testFinish) return;
-
-		if(this.index > this.count){
-			this.testFinish = 1;
-			this.index = 0;
-			//提交成绩
-			this.submitTest();
-		} else {
-			if(-1 != this.index){
-				var obj = this.obj[this.index];
-				if(!obj.score) return;
-			}
-			this.index++;
-
-			this.showProblem();
-			this.showProcessButton();
-			this.play_word_set_init();
-		}
-	},
-	showAnswer : function(){
-		if(1 != this.testFinish) return;
-
-
-
-
-	},
-	submitTest : function(){
-		$.ajax({
-			url: 'xxxxxxx',
-			type: 'post',
-			data: {
-				test : this.obj,
-			},
-			dataType: 'json',
-			timeout: 10000,
-			cache: false,//不缓存数据
-			async: false,//同步：false,异步：true,默认true
-			success: function(data){
-				switch(data.code){
-					case 'T':
-
-						break;
-					case 'F':
-						alert(data.msg);
-						break;
-					default:;
-				}
-			},
-		});
-	},
-	obj : '',
-	count : '',
-	select_count : '<{$select_count}>',
-	index : -1,
-	testFinish : 0,
-	init : function(){
-		this.obj = <php>echo $english_json</php>;
-		this.count = this.obj.length;
-		GetRandomArr(this.obj);
-		for(var i = 0; i < this.count; i++){
-			var sym = this.obj[i].symbol.split('$$');
-			this.obj[i].sym = {en : sym[0], us : sym[1]};
-			this.obj[i].index = i;
-			this.obj[i].search = sprintf(en_search_from, this.obj[i].en);
-			this.obj[i].score = null;
-		}
-		if(this.select_count > this.count) this.select_count = this.count;
-	},
-	play_word_set_init : function (){
-		$('.voice').click(function(){
-			var en = $(this);
-			var word = en.attr('data');
-			var type = en.attr('type');
-			var index = en.attr('index');
-			play_word(word, type, index);
-		});
-		$('.voice').hover(function(){
-			$(this).css('color', '#ccc');
-		},function(){
-			$(this).css('color', '#337ab7');
-		});
-	},
-};
 </script>
 <script type="text/template" id="showProblemTpl">
 	<div class="list-group-item">
@@ -183,8 +82,12 @@ var test = {
 </script>
 <script type="text/template" id="showProblemSelectTpl">
 	<div class="list-group-item">
-		<p class="list-group-item-text" onclick="test.checkAnswer(${index});">${cn}</p>
+		<p class="list-group-item-text" onclick="book_chapter_test.checkAnswer(${index});">${cn}</p>
 	</div>
 </script>
+<style>
+	.list-group-item-text{cursor: pointer;}
+	.list-group-item-text:hover{background-color: #ccc;}
+</style>
 </body>
 </html>

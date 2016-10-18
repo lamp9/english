@@ -4,6 +4,7 @@ class IndexAction extends Action {
 		'book'			=> 'English_book',
 		'sort'			=> 'English_sort',
 		'chapter'		=> 'English_chapter',
+		'test'			=> 'English_chapter_test',
 		'table'			=> 'english',
 		'table_set'		=> 'english_set',
 		'table_log'     => 'english_add_queue_log',
@@ -45,5 +46,9 @@ class IndexAction extends Action {
 
 	public function book_chapter_test(){
 		English_bookAction::book_chapter_test();
+	}
+
+	public function book_chapter_test_submit(){
+		English_bookAction::book_chapter_test_submit();
 	}
 }

@@ -102,5 +102,18 @@ class InstallAction extends Action {
 			KEY `uid` (`uid`),
 			KEY `bid` (`bid`)
 		) engine = MyISAM default charset = utf8");
+
+		//英语书章节测试
+		$arr = $mysql->query("CREATE TABLE `english_chapter_test` (
+			  `id` int(11) NOT NULL AUTO_INCREMENT,
+			  `uid` int(11) NOT NULL,
+			  `book_id` int(11) NOT NULL,
+			  `book_chapter_id` int(11) NOT NULL,
+			  `score` decimal(10,2) NOT NULL,
+			  `time` datetime NOT NULL,
+			  PRIMARY KEY (`id`),
+			  KEY `uid` (`uid`),
+			  KEY `book_chapter_id` (`book_chapter_id`)
+			) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_bin;");
 	}
 }
