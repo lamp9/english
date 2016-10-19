@@ -38,8 +38,8 @@
 		<ul class="list-inline list-unstyled" id="console_button">
 			<li style="width: 100%;"><h5 id="time_process"></h5></li>
 			<li><a href="#set-container" role="button" data-toggle="modal" title='Set'><i class="fa fa-cog"></i></a></li>
-			<li><a href="javascript:;" onclick="time_reload();" title='Next'><i class="fa fa-random"></i></a></li>
-			<li><a href="javascript:;" onclick="time_play_pause();" title='Play / Pause' id='play' state='play'><i class='fa fa-play'></i></a></li>
+			<li><a href="javascript:;" onclick="time_go.time_reload();" title='Next'><i class="fa fa-random"></i></a></li>
+			<li><a href="javascript:;" onclick="time_play_pause.time_play_pause();" title='Play / Pause' id='play' state='play'><i class='fa fa-play'></i></a></li>
 		</ul>
 		</div>
 	</div>
@@ -85,7 +85,7 @@
 											<input type="text" class="form-control" name="time_en_play_second" placeholder="秒数">
 											<span class="input-group-addon">推迟秒数</span>
 											<input type="text" name="time_en_play_second_delay" class="form-control" placeholder="秒数"/>
-											<span class="input-group-addon btn" onClick="time_en_play_second_set(true);">SET</span>
+											<span class="input-group-addon btn" onClick="audio_english.time_en_play_second_set(true);">SET</span>
 										</div>
 									</div>
 									</p>
@@ -98,7 +98,7 @@
 											<input type="text" class="form-control" name="count" placeholder="秒数">
 											<span class="input-group-addon">秒数</span>
 											<input type="text" name="time" class="form-control" placeholder="秒数"/>
-											<span class="input-group-addon btn" onClick="time_reset(true);">SET</span>
+											<span class="input-group-addon btn" onClick="time_reset.time_reset(true);">SET</span>
 										</div>
 									</div>
 									</p>
@@ -107,11 +107,11 @@
 									<p>
 									<div class="col-md-12 column">
 										<ul class="list-inline list-unstyled" id="on_off_button">
-											<li><a href="javascript:;" onclick="voice_en_type_set(true);" title='Voice_en_type'></a></li>
-											<li><a href="javascript:;" onclick="voice_en_set(true);" title='Voice_en'>EN <i></i></a></li>
-											<li><a href="javascript:;" onclick="voice_en_pause_set(true);" title='Voice_en_pause'>EN_Pause <i></i></a></li>
-											<li><a href="javascript:;" onclick="voice_tips_set(true);" title='Voice_tips'><i class="fa fa-bell-o" aria-hidden="true"></i> <i></i></a></li>
-											<li><a href="javascript:;" onclick="light_tips_set(true);" title='Light_tips'><i class="fa fa-lightbulb-o"></i> <i></i></a></li>
+											<li><a href="javascript:;" onclick="audio_english.voice_en_type_set(true);" title='Voice_en_type'></a></li>
+											<li><a href="javascript:;" onclick="audio_english.voice_en_set(true);" title='Voice_en'>EN <i></i></a></li>
+											<li><a href="javascript:;" onclick="audio_english.voice_en_pause_set(true);" title='Voice_en_pause'>EN_Pause <i></i></a></li>
+											<li><a href="javascript:;" onclick="audio_voice_tips.voice_tips_set(true);" title='Voice_tips'><i class="fa fa-bell-o" aria-hidden="true"></i> <i></i></a></li>
+											<li><a href="javascript:;" onclick="light_tips.light_tips_set(true);" title='Light_tips'><i class="fa fa-lightbulb-o"></i> <i></i></a></li>
 											<li><a href="javascript:;" onClick="location.reload();" title='Refresh'><i class="fa fa-refresh"></i></a></li>
 											<li><a href="/" title='Back'><i class="fa fa-times"></i></a></li>
 										</ul>
@@ -186,42 +186,43 @@ body{background-color: #303030;}
 	filter:progid:DXImageTransform.Microsoft.gradient(startColorstr=＃3a70a4,endColorstr=＃3a70a3,grandientType=1);
 }
 </style>
-<script>
 <php>$config = get_config();
-$url = $config['search_word_voice_from_url'];
-$search = $config['search_word_from_url'];
+	$url = $config['search_word_voice_from_url'];
+	$search = $config['search_word_from_url'];
 </php>
-//语音播放url
-var en_search_from = '<{$search}>';
-var voice_en_url = '<{$url}>';
-//提示音播放路径
-var path_voice_tips = '__PUBLIC__/voice/';
-//单词数据文件
-var data_position = '<{$data_position}>';
-var data_url = '__URL__-rand_word_json';
-</script>
-<script src="__PUBLIC__/js/rand_word/init.js"></script>
-<script src="__PUBLIC__/js/rand_word/common.js"></script>
-<script src="__PUBLIC__/js/rand_word/audio_en.js"></script>
-<script src="__PUBLIC__/js/rand_word/audio_voice_tips.js"></script>
-<script src="__PUBLIC__/js/rand_word/light_tips.js"></script>
-<script src="__PUBLIC__/js/rand_word/rand_word.js"></script>
-<script src="__PUBLIC__/js/rand_word/time_go.js"></script>
-<script src="__PUBLIC__/js/rand_word/time_reset.js"></script>
-<script src="__PUBLIC__/js/rand_word/time_play_pause.js"></script>
-<script src="__PUBLIC__/js/rand_word/waterfall.js"></script>
+
+<script src="__PUBLIC__/js/english-plugin/init.js"></script>
+<script src="__PUBLIC__/js/english-plugin/common.js"></script>
+<script src="__PUBLIC__/js/english-plugin/audio_english.js"></script>
+<script src="__PUBLIC__/js/english-plugin/audio_voice_tips.js"></script>
+<script src="__PUBLIC__/js/english-plugin/light_tips.js"></script>
+<script src="__PUBLIC__/js/english-plugin/english_rand_word.js"></script>
+<script src="__PUBLIC__/js/english-plugin/time_go.js"></script>
+<script src="__PUBLIC__/js/english-plugin/time_reset.js"></script>
+<script src="__PUBLIC__/js/english-plugin/time_play_pause.js"></script>
+<script src="__PUBLIC__/js/english-plugin/waterfall.js"></script>
+<script src="__PUBLIC__/js/english-plugin/keyboard-event.js"></script>
+
+<!--<script src="__PUBLIC__/js/rand_word/init.js"></script>&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;
+<script src="__PUBLIC__/js/rand_word/common.js"></script>-&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;
+<script src="__PUBLIC__/js/rand_word/audio_en.js"></script>-&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;
+<script src="__PUBLIC__/js/rand_word/audio_voice_tips.js"></script>-&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;
+<script src="__PUBLIC__/js/rand_word/light_tips.js"></script>&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;
+<script src="__PUBLIC__/js/rand_word/rand_word.js"></script>&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;
+<script src="__PUBLIC__/js/rand_word/time_go.js"></script>-&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;
+<script src="__PUBLIC__/js/rand_word/time_reset.js"></script>-&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;
+<script src="__PUBLIC__/js/rand_word/time_play_pause.js"></script>-&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;
+<script src="__PUBLIC__/js/rand_word/waterfall.js"></script>&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;-->
 <script>var cnzz_protocol = (("https:" == document.location.protocol) ? " https://" : " http://");document.write(unescape("%3Cspan id='cnzz_stat_icon_1259186236'%3E%3C/span%3E%3Cscript src='" + cnzz_protocol + "s11.cnzz.com/z_stat.php%3Fid%3D1259186236' type='text/javascript'%3E%3C/script%3E"));</script>
 <script>
 $(function(){
-	$('#cnzz_stat_icon_1259186236').hide();
+	english_rand_word.data_url = '__URL__-rand_word_json';
+	english_rand_word.data_position = '<{$data_position}>';
+	english_rand_word.en_search_from = '<{$search}>';
+	audio_english.voice_en_url = '<{$url}>';
+	audio_voice_tips.path_voice_tips = '__PUBLIC__/voice/';
+	init.init();
 
-	var left_position = (document.body.clientWidth / 2) - 28;
-	var top_position = 100;
-	$('#show_ok').css('left', left_position).css('top', top_position);
+	$('#cnzz_stat_icon_1259186236').hide();
 });
-function show_set_tips(){
-	var obj = $('#show_ok');
-	obj.show('normal');
-	setTimeout("$('#show_ok').hide('slow');", 1000);
-}
 </script>
