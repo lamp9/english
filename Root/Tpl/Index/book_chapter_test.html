@@ -53,15 +53,16 @@
 </php>
 <script src="__PUBLIC__/js/cookies.js"></script>
 <script src="__PUBLIC__/js/jquery-plugin/juicer.js"></script>
-<script src="__PUBLIC__/js/rand_word/common.js"></script>
-<script src="__PUBLIC__/js/rand_word/audio_en.js"></script>
-<script src="__PUBLIC__/js/rand_word/book_chapter_obj.js"></script>
-<script src="__PUBLIC__/js/rand_word/book_chapter_test.js"></script>
+<script src="__PUBLIC__/js/english-plugin/common.js"></script>
+<script src="__PUBLIC__/js/english-plugin/audio_english.js"></script>
+<script src="__PUBLIC__/js/english-plugin/english_rand_word.js"></script>
+<script src="__PUBLIC__/js/english-plugin/book_chapter_obj.js"></script>
+<script src="__PUBLIC__/js/english-plugin/book_chapter_test.js"></script>
 <script>
-//语音播放url
-var en_search_from = '<{$search}>';
-var voice_en_url = '<{$url}>';
 $(function(){
+	english_rand_word.en_search_from = '<{$search}>';
+	audio_english.voice_en_url = '<{$url}>';
+
 	book_chapter_test.id = '<{$id}>';
 	book_chapter_test.sid = '<{$sid}>';
 	book_chapter_test.obj = <php>echo $english_json</php>;
