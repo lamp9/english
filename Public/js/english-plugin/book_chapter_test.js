@@ -45,20 +45,14 @@ var book_chapter_test = {
 	},
 	nextProblem : function(){
 		if(1 == this.testFinish) return;
-
-		if(this.index > this.count){
+		this.index++;
+		if(this.index > this.count - 1){
 			this.testFinish = 1;
 			this.index = 0;
 			//提交成绩
 			this.submitTest();
 			this.showAnswer();
 		} else {
-			if(-1 != this.index){
-				var obj = this.obj[this.index];
-				if(!obj.score) return;
-			}
-			this.index++;
-
 			this.showProblem();
 			this.showProcessButton();
 			this.play_word_set_init();
@@ -129,3 +123,14 @@ var book_chapter_test = {
 		});
 	},
 };
+
+
+//键盘事件
+window.document.onkeydown = disableRefresh;
+function disableRefresh(evt){
+	var evt = (evt) ? evt : window.event;
+	var code = evt.keyCode;
+	if (code) {
+		if(code == 32) $('#showProcessButton').click();//空格
+	}
+}
