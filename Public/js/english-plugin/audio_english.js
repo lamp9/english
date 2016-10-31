@@ -6,6 +6,8 @@ var audio_english = {
 	cookies_time_en_play_second: 'time_en_play_second',//语音播放间隔秒数cookie-key
 	cookies_time_en_play_second_delay: 'time_en_play_second_delay',//语音播放开始时秒数推迟cookie-key
 
+	audio_english_tmp_list: [],
+
 	current_second: 0,//暂停时的秒数
 	voice_en_url:'',//语音播放url
 
@@ -118,26 +120,32 @@ var audio_english = {
 			if (this.voice_en == 1) {
 				var div_voice_en = $('#voice_en_load');
 				var div_en = $('#div_word>.list-group>.list-group-item>h4>a');
-				var html = ''
-				div_en.each(function (index) {
-					var obj = $(this);
-					var url = common.sprintf(audio_english.voice_en_url, obj.text(), audio_english.voice_en_type);
-					html += '<audio id="audio_play_en_' + (index + 1) + '" en="' + obj.text() + '"><source src="' + url + '" type="audio/mpeg"></audio>';
-				});
-				div_voice_en.html(html);
 				$('#voice_en_load_tmp').empty();
+				div_voice_en.empty();
+				this.audio_english_tmp_list = [];
+				div_en.each(function (index) {
+					audio_english.audio_english_tmp_list[index] = $(this).text();
+					setTimeout('audio_english.voice_en_load_delay_load(' + index + ');', 500 * index);
+				});
 			}
 		},
 
+	voice_en_load_delay_load://加载语音延迟
+		function(index){
+			var enText = this.audio_english_tmp_list[index];
+
+			var url = common.sprintf(this.voice_en_url, enText, this.voice_en_type);
+			var html = '<audio id="audio_play_en_' + (index + 1) + '" en="' + enText + '"><source src="' + url + '" type="audio/mpeg"></audio>';
+			$('#voice_en_load').append(html);
+		},
 
 	play_word_set://加载语音后的html元素重新定义
 		function () {
 			$('.voice').click(function () {
 				var en = $(this).parent().find('.en');
-				var en_obj = $(en);
-				var index = en_obj.attr('index');
+				var index = en.attr('index');
 				var type = $(this).attr('data');
-				this.play_word(en_obj.text(), type, index);
+				audio_english.play_word(en.text(), type, index);
 			});
 			$('.list-group span').hover(function () {
 				$(this).css('color', '#ccc');
@@ -153,7 +161,6 @@ var audio_english = {
 			if (type == this.voice_en_type) {
 				var obj = $('#audio_play_en_' + index);
 				if (obj.length > 0) {
-
 					sym = false;
 				}
 			}
