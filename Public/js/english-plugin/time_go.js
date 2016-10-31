@@ -28,7 +28,8 @@ var time_go = {
 		function () {
 			if (english_rand_word.data.length == 0) {
 				english_rand_word.data = english_rand_word.data_tmp;
-				english_rand_word.data_tmp = new Array();
+				common.GetRandomArr(english_rand_word.data);
+				english_rand_word.data_tmp = [];
 			}
 			english_rand_word.rand_word();
 			window_onresize();

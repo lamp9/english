@@ -12,23 +12,9 @@ var english_rand_word = {
 			var html = '';
 			var data_len = this.data.length;
 			if (count >= data_len) count = data_len;
-			var arr_index = new Array();
-			var arr_word = new Array();
 			for (var i = 0; i < count; i++) {
-				var position = 0;
-				while (1) {
-					var sym = true;
-					position = common.GetRandomNum(1, data_len) - 1;
-					for (var j = 0; j < arr_index.length; j++) {
-						if (position == arr_index[j]) sym = false;
-					}
-					if (sym) break;
-				}
-				arr_index[i] = position;
-				arr_word[i] = this.data[arr_index[i]];
-				this.data_tmp[this.data_tmp.length] = this.data[arr_index[i]];
-				delete this.data[arr_index[i]];
-				var obj = arr_word[i];
+				var obj = this.data_tmp[this.data_tmp.length] = this.data[i];
+				delete this.data[i];
 
 				var en_symbol = obj.symbol.split('$$');
 				html += '<div class="list-group">';
@@ -42,15 +28,8 @@ var english_rand_word = {
 				html += '<p class="list-group-item-text">' + obj.cn + '</p></div></div>';
 			}
 			init.div_word.html(html);
-			var del_count = 0;
-			while (del_count < count) {
-				for (var i = 0; i < this.data.length; i++) {
-					if (!this.data[i]) {
-						this.data.splice(i, 1);
-						del_count++;
-					}
-				}
-			}
+			common.ArrEmptyDelete(this.data);
+
 			audio_english.play_word_set();
 		},
 
@@ -67,6 +46,7 @@ var english_rand_word = {
 				cache: false,//不缓存数据
 				async: true,//同步：false,异步：true,默认true
 				success: function (data_return) {
+					common.GetRandomArr(data_return);
 					english_rand_word.data = data_return;
 					setTimeout('$("#en_load_animation").css("display", "none");', 3000);
 				},

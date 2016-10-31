@@ -20,6 +20,15 @@ var common = {
 			Arr.sort(function(){ return 0.5 - Math.random() });
 		},
 
+	ArrEmptyDelete://删除数组中的空元素
+		function(Arr){
+			for (var i = 0; i < Arr.length; i++) {
+				if (!Arr[i]) {
+					Arr.splice(i--, 1);
+				}
+			}
+		},
+
 	show_time://时间格式换算
 		function(time){
 			//time = parseInt(time / 1000);
