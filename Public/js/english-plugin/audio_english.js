@@ -134,10 +134,9 @@ var audio_english = {
 		function () {
 			$('.voice').click(function () {
 				var en = $(this).parent().find('.en');
-				var en_obj = $(en);
-				var index = en_obj.attr('index');
+				var index = en.attr('index');
 				var type = $(this).attr('data');
-				this.play_word(en_obj.text(), type, index);
+				audio_english.play_word(en.text(), type, index);
 			});
 			$('.list-group span').hover(function () {
 				$(this).css('color', '#ccc');
@@ -153,7 +152,6 @@ var audio_english = {
 			if (type == this.voice_en_type) {
 				var obj = $('#audio_play_en_' + index);
 				if (obj.length > 0) {
-
 					sym = false;
 				}
 			}
