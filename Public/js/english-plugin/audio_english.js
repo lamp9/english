@@ -116,7 +116,7 @@ var audio_english = {
 
 	voice_en_load://加载语音
 		function () {
-			console.log('here');
+			if (this.voice_en != 1) return;
 			var div_voice_en = $('#voice_en_load');
 			div_voice_en.empty();
 			$('#voice_en_load_tmp').empty();
