@@ -29,6 +29,22 @@ var common = {
 			}
 		},
 
+	IsPC://判断客户端是否为PC
+		function() {
+			var userAgentInfo = navigator.userAgent;
+			var Agents = ["Android", "iPhone",
+				"SymbianOS", "Windows Phone",
+				"iPad", "iPod"];
+			var flag = true;
+			for (var v = 0; v < Agents.length; v++) {
+				if (userAgentInfo.indexOf(Agents[v]) > 0) {
+					flag = false;
+					break;
+				}
+			}
+			return flag;
+		},
+
 	show_time://时间格式换算
 		function(time){
 			//time = parseInt(time / 1000);
