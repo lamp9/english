@@ -1,7 +1,10 @@
 var init = {
 	cookies_tmp_day:30,//所有cookie值有效期时间，单位天
 	div_word:$('#div_word'),//放置单词的容器
+	isPC:'',
 	init:function(){
+		this.isPC = common.IsPC;
+		this.show_set_tips_init();
 		english_rand_word.data_init();
 
 		audio_voice_tips.init();
@@ -22,7 +25,6 @@ var init = {
 		time_reset.time_reset(false);
 
 		time_go.time_go();
-		this.show_set_tips_init();
 	},
 	show_set_tips_init:function(){
 		var left_position = (document.body.clientWidth / 2) - 28;
