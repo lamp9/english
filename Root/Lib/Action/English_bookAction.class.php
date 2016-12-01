@@ -163,6 +163,7 @@ class English_bookAction extends Action {
 	}
 
 	public function book_chapter_test(){
+		ToolsAction::check_login();
 		$this->id = $id = $this->_get('id');
 		$this->sid = $sid = $this->_get('sid');
 		$this->slist = ToolsAction::return_all(M($this->table['sort']), false, false, false, false);
