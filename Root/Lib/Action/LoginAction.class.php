@@ -38,8 +38,9 @@ class LoginAction extends Action {
 		session('name', $arr['name']);
 		session('level', $arr['level']);
 		if($this->_post('online') == 1){
-			cookie('id', $arr['id'], 259200);
-			cookie('name', $arr['name'], 259200);
+			$time = 3600 * 24 * 10;
+			cookie('id', $arr['id'], $time);
+			cookie('name', $arr['name'], $time);
 		} else {
 			cookie('id', $arr['id'], 43200);
 			cookie('name', $arr['name'], 43200);
