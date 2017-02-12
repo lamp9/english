@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<include file='Public/index_css'/>
+	<title>数据安装 - LAMP9印象英语</title>
+</head>
+<body>
+<div class="container-fluid">
+	<div class="row clearfix">
+	<div class="col-md-12 column">
+		<h1>数据安装</h1>
+	</div>
+	</div>
+	<div class="row clearfix">
+	<div class="col-md-12 column">
+		<div class="progress">
+			<div id="progress-bar" class="progress-bar progress-bar-striped active" role="progressbar" aria-valuenow="45" aria-valuemin="0" aria-valuemax="100" style="width: 1%;">
+				<span class="sr-only" style="position: inherit;">0% Complete</span>
+			</div>
+		</div>
+	</div>
+	</div>
+	<div class="row clearfix">
+		<div class="col-md-12 column">
+			<a href="#" id="finish" class="btn btn-success">安装中,请耐心等待,请勿关闭页面！</a>
+		</div>
+	</div>
+</div>
+<script>
+	var progressBar = $('#progress-bar');
+	function book_chapter_create_json(){
+		var sym = true;
+		$.ajax({
+			url: '__APP__/English_book-book_chapter_create_json',
+			type: 'POST',
+			data: {
+
+			},
+			dataType: 'json',
+			timeout: 250000,//1000毫秒后超时
+			cache: false,//不缓存数据
+			async: true,//同步：false,异步：true,默认true
+			success: function(data){
+				if(data.state == 'none') sym = false;
+				console.log('----a: ' + data.a + ' ----t: ' + data.t);
+
+				function toDecimal(x) {
+					var f = parseFloat(x);
+					if (isNaN(f)) {
+						return;
+					}
+					f = Math.round(x*100)/100;
+					return f;
+				}
+				var percent = (data.t / data.a) * 100;
+				percent = toDecimal(percent);
+				progressBar.css('width', percent + '%');
+				progressBar.find('span.sr-only').text(percent + "% Complete");
+			},//请求成功后执行
+			complete: function(){
+				if(sym) setTimeout('book_chapter_create_json();', 500);
+				else {
+					$('#finish').text('安装已完成，请返回！').attr('href', '/');
+				}
+			},
+		});
+	}
+	$(function () {
+		book_chapter_create_json();
+	});
+</script>
+</body>
+</html>

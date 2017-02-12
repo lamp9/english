@@ -4,7 +4,7 @@ function get_db_config($from){
 		//本地
 		case 'local' :
 			$data['user']	= 'root';
-			$data['pwd']	= '';
+			$data['pwd']	= 'root';
 			$data['db']		= 'english';
 			break;
 		

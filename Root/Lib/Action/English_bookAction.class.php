@@ -682,7 +682,7 @@ class English_bookAction extends Action {
 		$english = M('english');
 		$english_chapter = M($this->table['chapter']);
 
-		$page = ToolsAction::return_page($english_chapter, array('sym_json_file' => 'F'), 'Page', '条记录', 10);
+		$page = ToolsAction::return_page($english_chapter, array('sym_json_file' => 'F'), 'Page', '条记录', 50);
 		$all = ToolsAction::return_result($english_chapter, array('sym_json_file' => 'F'), false,  array('id'=>'desc'), $page);
 
 		if(count($all) == 0){
@@ -706,12 +706,10 @@ class English_bookAction extends Action {
 
 			$item['sym_json_file'] = 'T';
 			$english_chapter->save($item);
-
 		}
 
-		$static['sym_json_file'] = 'F';
-		$all = ToolsAction::return_all($english_chapter, $static, array('count(*) ac'), false, false);
-		$return['f'] = $all[0]['ac'];
+		$all = ToolsAction::return_all($english_chapter, false, array('count(*) ac'), false, false);
+		$return['a'] = $all[0]['ac'];
 
 		$static['sym_json_file'] = 'T';
 		$all = ToolsAction::return_all($english_chapter, $static, array('count(*) ac'), false, false);

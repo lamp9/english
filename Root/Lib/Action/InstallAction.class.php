@@ -5,8 +5,18 @@ class InstallAction extends Action {
 		ToolsAction::check_login();
 		ToolsAction::check_level('admin');
 	}
-	
+
 	public function index(){
+		$file = './en.lock';
+		if(!file_exists($file)){
+			$fp = fopen($file, "wb");
+			fclose($fp);
+			M()->query('update english_chapter set `sym_json_file`=\'F\'');
+		}
+		$this->display();
+	}
+
+	public function installDatabase(){
 		echo '<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />';
 		$mysql = M();
 		
