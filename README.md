@@ -47,3 +47,10 @@ english是一个英语学习应用，管理员可以管理用户、英语单词/
 3. 浏览器请求http://hostname/index.php/Login-index.html ,输入用户名:root,密码:123,即可以管理员身份进入后台
 4. 浏览器请求http://hostname/index.php/Install ,对数据文件进行初始化(生成播放数据文件)
 5. 普通用户测试账号可使用用户名:guest,密码:123,进行登录体验
+6. 如本项目运行在nginx下，则设置为<br>
+	location / {<br>
+	if (!-e $request_filename) {<br>
+	rewrite ^/([\w-]+)/([\w-]+)\?[\w-]+$ /index.php?r=$1/$2&$query_string last;<br>
+	rewrite ^/([\w-]+)/([\w-]+)$ /index.php?r=$1/$2 last;<br>
+	}<br>
+	}<br>
