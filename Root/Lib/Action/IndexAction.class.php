@@ -18,7 +18,8 @@ class IndexAction extends Action {
 		English_bookAction::index();
 	}
 
-	public function word(){
+	//显示单词
+	/*public function word(){
 		cookie($this->table['table'], 'http://'.$_SERVER['HTTP_HOST'].$_SERVER['REQUEST_URI']);
 		$table = M($this->table['table']);
 		$page = ToolsAction::return_page($table, false, 'Page', '', 20);
@@ -26,7 +27,7 @@ class IndexAction extends Action {
 		$this->show = $page->show();
 		$this->slist = ToolsAction::return_all(M($this->table['sort']), false, false, false, false);
 		$this->display();
-	}
+	}*/
 	
 	public function search_book(){
 		English_bookAction::search_book();

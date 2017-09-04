@@ -108,7 +108,8 @@ class LoginAction extends Action {
 		$this->display('Index/rand_word');
 	}
 
-	public function rand_word_json(){
+	//生成合并JSON
+	/*public function rand_word_json(){
 		$data_position = explode(',', $this->_post('data_position'));
 		$json = array();
 		foreach($data_position as $item){
@@ -119,7 +120,7 @@ class LoginAction extends Action {
 			$json = json_arr_merge($json, $json_tmp);
 		}
 		echo json_encode($json);
-	}
+	}*/
 
 	public function rand_word_select(){
 		$this->display();

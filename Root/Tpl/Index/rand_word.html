@@ -183,7 +183,8 @@ body{background-color: #303030;}
 <script>var cnzz_protocol = (("https:" == document.location.protocol) ? " https://" : " http://");document.write(unescape("%3Cspan id='cnzz_stat_icon_1259186236'%3E%3C/span%3E%3Cscript src='" + cnzz_protocol + "s11.cnzz.com/z_stat.php%3Fid%3D1259186236' type='text/javascript'%3E%3C/script%3E"));</script>
 <script>
 $(function(){
-	english_rand_word.data_url = '__URL__-rand_word_json';
+	//english_rand_word.data_url = '__URL__-rand_word_json';//使用后端脚本生成JSON的URL
+	english_rand_word.data_url = '__PUBLIC__/en_chapter/';
 	english_rand_word.data_position = '<{$data_position}>';
 	english_rand_word.en_search_from = '<{$search}>';
 	audio_english.voice_en_url = '<{$url}>';
