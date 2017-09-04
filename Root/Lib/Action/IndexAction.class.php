@@ -33,6 +33,7 @@ class IndexAction extends Action {
 	}
 
 	public function search_word(){
+		exit;
 		English_bookAction::search_word();
 	}
 

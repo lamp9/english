@@ -2,4 +2,6 @@
 define('APP_NAME','ROOT');
 define('APP_PATH','./Root/');
 define('APP_DEBUG',true);
-require './ThinkPHP/ThinkPHP.php';?>
+require 'E:/FrameWork/ThinkPHP/3.1.3/ThinkPHP.php';
+//require './ThinkPHP/ThinkPHP.php';
+?>

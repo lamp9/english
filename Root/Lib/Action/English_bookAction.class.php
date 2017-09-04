@@ -61,6 +61,7 @@ class English_bookAction extends Action {
 	}
 
 	public function search_word(){
+		exit;
 		$word = $this->_post('search_word');
 		if($word != '') cookie('search_word', $word);
 		else $word = cookie('search_word');
