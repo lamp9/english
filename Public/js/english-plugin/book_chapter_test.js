@@ -39,7 +39,7 @@ var book_chapter_test = {
 		//判断答案
 		var obj = this.obj[this.index];
 		if(obj.score) return;
-		obj.score = (index == this.index) ? 'T' : 'F';
+		obj.score = (index == this.index) ? true : false;
 		//显示答案
 		$('#showProblem .list-group-item-text').html(this.obj[this.index].cn).css('color', (index == this.index) ? '#000' : '#f00').show();
 	},
@@ -65,6 +65,11 @@ var book_chapter_test = {
 		book_chapter_obj.init(this.obj);
 	},
 	submitTest : function(){
+		var count_right = 0;
+		for(var i = 0; i < this.obj.length; i++){
+			var item = this.obj[i];
+			if(item.score) count_right++;
+		}
 		$.ajax({
 			url: this.submitTestUrl,
 			type: 'post',
@@ -72,7 +77,7 @@ var book_chapter_test = {
 				id	: this.id,
 				sid	: this.sid,
 				count	: this.count,
-				answer	: this.obj,
+				count_right	: count_right,
 			},
 			dataType: 'json',
 			timeout: 10000,

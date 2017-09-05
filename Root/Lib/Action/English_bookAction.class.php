@@ -181,15 +181,13 @@ class English_bookAction extends Action {
 
 	public function book_chapter_test_submit(){
 		$post = $this->_post();
-		$count = 0;
-		foreach($post['answer'] as $answer){
-			if('T' == $answer['score']) ++$count;
-		}
+		$count = $post['count'];
+		$count_right = $post['count_right'];
 
 		$data['uid'] = session('id');
 		$data['book_id'] = $post['sid'];
 		$data['book_chapter_id'] = $post['id'];
-		$data['score'] = ($count) ? sprintf("%.2f", ($count / $post['count']) * 100) : 0;
+		$data['score'] = ($count_right) ? sprintf("%.2f", ($count_right / $count) * 100) : 0;
 		$data['time'] = date('Y-m-d H:i:s', time());
 		if(M($this->table['test'])->add($data)){
 			$result = ['code' => 'T', 'result' => $data];
