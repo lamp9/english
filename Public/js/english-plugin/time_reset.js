@@ -23,7 +23,7 @@ var time_reset = {
 					this.count_init = get_cookie(this.cookies_count);
 				}
 				if (this.time_set_tmp == null) {
-					set_cookie(this.cookies_time, 35, init.cookies_tmp_day);
+					set_cookie(this.cookies_time, 16, init.cookies_tmp_day);
 					this.time_set_tmp = get_cookie(this.cookies_time);
 				}
 				$('input[name=count]').val(this.count_init);

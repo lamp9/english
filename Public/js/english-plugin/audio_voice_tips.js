@@ -17,7 +17,8 @@ var audio_voice_tips = {
 		function () {
 			var html = '';
 			var path = this.path_voice_tips;
-			var voice = new Array('iphone-tips.mp3', 'win8-tips.mp3', 'win8-tips2.mp3');
+			//var voice = new Array('iphone-tips.mp3', 'win8-tips.mp3', 'win8-tips2.mp3');
+			var voice = ['udisk-pull.mp3'];
 			for (var i = 0; i < voice.length; i++) {
 				html += '<audio id="audio_play_tips_' + i + '"><source src="' + path + voice[i] + '" type="audio/mpeg"></audio>';
 			}

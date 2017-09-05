@@ -8,7 +8,7 @@ var light_tips = {
 	light_tips_show://提示光活动
 		function () {
 			if (this.light_tips == 1) {
-				$("body").animate({backgroundColor: "#28ff28",}, 600);
+				$("body").animate({backgroundColor: "#cccccc",}, 600);
 				$("body").animate({backgroundColor: "#303030",}, 400);
 			}
 		},

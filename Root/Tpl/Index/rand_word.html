@@ -61,9 +61,9 @@
 									<div class="col-md-12 column">
 										<div class="input-group">
 											<span class="input-group-addon"><label><input type="checkbox" name="time_en_play_second_switch"> 播放间隔</label></span>
-											<input type="text" class="form-control" name="time_en_play_second" placeholder="秒数">
+											<input type="text" class="form-control" name="time_en_play_second" placeholder="秒数" onkeyup="this.value=this.value.replace(/\D/g,'')" onafterpaste="this.value=this.value.replace(/\D/g,'')">
 											<span class="input-group-addon">推迟秒数</span>
-											<input type="text" name="time_en_play_second_delay" class="form-control" placeholder="秒数"/>
+											<input type="text" name="time_en_play_second_delay" class="form-control" placeholder="秒数" onkeyup="this.value=this.value.replace(/\D/g,'')" onafterpaste="this.value=this.value.replace(/\D/g,'')"/>
 											<span class="input-group-addon btn" onClick="audio_english.time_en_play_second_set(true);">SET</span>
 										</div>
 									</div>
@@ -74,9 +74,9 @@
 									<div class="col-md-12 column">
 										<div class="input-group">
 											<span class="input-group-addon">单词数</span>
-											<input type="text" class="form-control" name="count" placeholder="秒数">
+											<input type="text" width="6" class="form-control" name="count" placeholder="秒数" onkeyup="this.value=this.value.replace(/\D/g,'');$('[name=time]').val(parseInt(this.value)*parseInt(audio_english.time_en_play_second)+parseInt(audio_english.time_en_play_second_delay));" onafterpaste="this.value=this.value.replace(/\D/g,'')">
 											<span class="input-group-addon">秒数</span>
-											<input type="text" name="time" class="form-control" placeholder="秒数"/>
+											<input type="text" width="6" name="time" class="form-control" placeholder="秒数" onkeyup="this.value=this.value.replace(/\D/g,'')" onafterpaste="this.value=this.value.replace(/\D/g,'')"/>
 											<span class="input-group-addon btn" onClick="time_reset.time_reset(true);">SET</span>
 										</div>
 									</div>

@@ -35,26 +35,27 @@ var english_rand_word = {
 
 	data_init://数据初始化
 		function () {
-			var dataReturn = null;
+			var dataReturn = [];
 			var idList = this.data_position;
 			idList = idList.split(',');
 			for(var i = 0; i < idList.length; i++) {
 				$.ajax({
-					url: this.data_url + i + '.json',
+					url: this.data_url + idList[i] + '.json',
 					type: 'GET',
 					data: {},
 					dataType: 'json',
 					timeout: 25000,//1000毫秒后超时
 					cache: false,//不缓存数据
-					async: true,//同步：false,异步：true,默认true
+					async: false,//同步：false,异步：true,默认true
 					success: function (data) {
-						//todo data
+						//合并数据
+						dataReturn = dataReturn.concat(data);
 					},
 				});
 			}
 			common.GetRandomArr(dataReturn);
 			english_rand_word.data = dataReturn;
-			setTimeout('$("#en_load_animation").css("display", "none");', 3000);
+			setTimeout('$("#en_load_animation").css("display", "none");', 1000);
 		},
 };
 
