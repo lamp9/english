@@ -49,16 +49,20 @@ var audio_english = {
 				}
 				if (index > count) return;
 				var show_en = $('#div_word>.list-group:nth-child(' + index + ')>.list-group-item>h4>a').text();
-				var play_audio = $('#audio_play_en_' + index);
+				var play_id = '#audio_play_en_' + index + '_' + audio_english.voice_en_type;
+				var play_audio = $(play_id);
 				var play_en = play_audio.attr('en');
 				if (!play_audio.length > 0 || play_en != show_en) {
 					if(init.isPC) this.voice_en_load();
 					return;
 				}
-				if(init.isPC) $('#audio_play_en_' + index)[0].play();
-				else this.play_word($('[index="' + index + '"]').text(), this.voice_en_type, index);
+
 				$('#div_word>.list-group>.list-group-item').css('background-color', '#fff');
 				$('#div_word>.list-group:nth-child(' + index + ')>.list-group-item').css('background-color', '#ccc');
+				try{
+					if(init.isPC) $(play_id)[0].play();
+					else this.play_word($('[index="' + index + '"]').text(), this.voice_en_type, index);
+				} catch (e) {}
 			}
 		},
 
@@ -119,54 +123,63 @@ var audio_english = {
 			if (this.voice_en != 1) return;
 			var div_voice_en = $('#voice_en_load');
 			div_voice_en.empty();
-			$('#voice_en_load_tmp').empty();
 			var div_en = $('#div_word>.list-group>.list-group-item>h4>a');
 			var html = '';
 			div_en.each(function (index) {
 				var obj = $(this);
 				var url = common.sprintf(audio_english.voice_en_url, obj.text(), audio_english.voice_en_type);
-				html += '<audio id="audio_play_en_' + (index + 1) + '" en="' + obj.text() + '"><source src="' + url + '" type="audio/mpeg"></audio>';
+				html += '<audio id="audio_play_en_' + (index + 1) + '_' + audio_english.voice_en_type + '" en="' + obj.text() + '"><source src="' + url + '" type="audio/mpeg"></audio>';
 			});
 			div_voice_en.html(html);
 		},
 
 	play_word_set://加载语音后的html元素重新定义
 		function () {
-			$('.voice').click(function () {
+			/*$('.voice').click(function () {
 				var en = $(this).parent().find('.en');
 				var index = en.attr('index');
 				var type = $(this).attr('data');
 				audio_english.play_word(en.text(), type, index);
-			});
+			});*/
 			$('.list-group span').hover(function () {
 				$(this).css('color', '#ccc');
 			}, function () {
 				$(this).css('color', '#000');
 			});
 		},
-
+	play_word_click://点击单词音标时触发播放
+		function (obj) {
+			var en = $(obj).parent().find('.en');
+			var index = en.attr('index');
+			var type = $(obj).attr('data');
+			audio_english.play_word(en.text(), type, index);
+		},
 
 	play_word://点击时播放
 		function (word, type, index) {
 			var sym = true;
 			if (type == this.voice_en_type) {
-				var obj = $('#audio_play_en_' + index);
+				var obj = $('#audio_play_en_' + index + '_' + audio_english.voice_en_type);
 				if (obj.length > 0) {
 					sym = false;
 				}
 			}
 			if (sym) {
-				var id = 'audio_play_' + type + '_' + index;
-				var obj = $('#' + id);
+				var id = '#audio_play_en_' + index + '_' + type;
+				var obj = $(id);
 				if (obj.length > 0) {
 				} else {
 					var url = common.sprintf(this.voice_en_url, word, type);
 					var html = '<audio id="' + id + '"><source src="' + url + '" type="audio/mpeg"></audio>';
-					$('#voice_en_load_tmp').append(html);
-					var obj = $('#' + id);
+					$('#voice_en_load').append(html);
+					var obj = $(id);
 				}
 			}
-			obj[0].play();
+			console.info(obj);
+			try{
+
+				//obj[0].play();
+			} catch (e) {}
 		},
 
 

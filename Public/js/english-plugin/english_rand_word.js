@@ -22,8 +22,8 @@ var english_rand_word = {
 				html += '<h4 class="list-group-item-heading">';
 
 				html += '<a href="' + common.sprintf(this.en_search_from, obj.en) + '" target="_blank" class=en index=' + (i + 1) + '>' + obj.en + '</a>&nbsp;&nbsp;';
-				html += '<span class=voice data=1>' + en_symbol[0] + '</span>&nbsp;&nbsp;';
-				html += '<span class=voice data=2>' + en_symbol[1] + '</span>';
+				html += '<span class=voice onclick="audio_english.play_word_click(this);" data=1>' + en_symbol[0] + '</span>&nbsp;&nbsp;';
+				html += '<span class=voice onclick="audio_english.play_word_click(this);" data=2>' + en_symbol[1] + '</span>';
 				html += '</h4>';
 				html += '<p class="list-group-item-text">' + obj.cn + '</p></div></div>';
 			}
