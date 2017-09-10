@@ -41,7 +41,7 @@ var book_chapter_obj = {
 		for(var i = 0; i < page_list.length; i++){
 			var en = page_list[i];
 
-			var style = (en.score == 'F' || en.score == null) ? 'style="color:#f00;"' : '';
+			var style = (en.score == false || en.score == null) ? 'style="color:#f00;"' : '';
 
 			html += '<tr ' + style + '><td>' + (i + 1) + '</td>';
 			html += '<td><a href="' + common.sprintf(english_rand_word.en_search_from, en.en) + '" target=_blank>' + en.en + '</a></td>';
