@@ -127,20 +127,19 @@ var audio_english = {
 			var html = '';
 			div_en.each(function (index) {
 				var obj = $(this);
+				var otherType = (1 == audio_english.voice_en_type) ? 2 : 1;
+				var idPre = 'audio_play_en_' + (index + 1) + '_';
+
 				var url = common.sprintf(audio_english.voice_en_url, obj.text(), audio_english.voice_en_type);
-				html += '<audio id="audio_play_en_' + (index + 1) + '_' + audio_english.voice_en_type + '" en="' + obj.text() + '"><source src="' + url + '" type="audio/mpeg"></audio>';
+				var urlOther = common.sprintf(audio_english.voice_en_url, obj.text(), otherType);
+				html += '<audio id="' + idPre + audio_english.voice_en_type + '" en="' + obj.text() + '"><source src="' + url + '" type="audio/mpeg"></audio>';
+				html += '<audio id="' + idPre + otherType + '" en="' + obj.text() + '"><source src="" type="audio/mpeg" srcLoad="' + urlOther + '"></audio>';
 			});
 			div_voice_en.html(html);
 		},
 
 	play_word_set://加载语音后的html元素重新定义
 		function () {
-			/*$('.voice').click(function () {
-				var en = $(this).parent().find('.en');
-				var index = en.attr('index');
-				var type = $(this).attr('data');
-				audio_english.play_word(en.text(), type, index);
-			});*/
 			$('.list-group span').hover(function () {
 				$(this).css('color', '#ccc');
 			}, function () {
@@ -152,33 +151,22 @@ var audio_english = {
 			var en = $(obj).parent().find('.en');
 			var index = en.attr('index');
 			var type = $(obj).attr('data');
-			audio_english.play_word(en.text(), type, index);
+			this.play_word(en.text(), type, index);
 		},
 
 	play_word://点击时播放
 		function (word, type, index) {
-			var sym = true;
-			if (type == this.voice_en_type) {
-				var obj = $('#audio_play_en_' + index + '_' + audio_english.voice_en_type);
-				if (obj.length > 0) {
-					sym = false;
-				}
-			}
-			if (sym) {
-				var id = '#audio_play_en_' + index + '_' + type;
-				var obj = $(id);
-				if (obj.length > 0) {
-				} else {
-					var url = common.sprintf(this.voice_en_url, word, type);
-					var html = '<audio id="' + id + '"><source src="' + url + '" type="audio/mpeg"></audio>';
-					$('#voice_en_load').append(html);
-					var obj = $(id);
-				}
-			}
-			console.info(obj);
-			try{
+			var id = '#audio_play_en_' + index + '_' + type;
+			var obj = $(id);
+			var objSrc = $(id + '> source');
 
-				//obj[0].play();
+			if('' == objSrc.attr('src')){
+				var src = objSrc.attr('srcLoad');
+				obj.empty();
+				obj.append('<source src="' + src + '" type="audio/mpeg">');
+			}
+			try{
+				obj[0].play();
 			} catch (e) {}
 		},
 
