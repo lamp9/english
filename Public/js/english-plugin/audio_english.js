@@ -49,19 +49,25 @@ var audio_english = {
 				}
 				if (index > count) return;
 				var show_en = $('#div_word>.list-group:nth-child(' + index + ')>.list-group-item>h4>a').text();
-				var play_id = '#audio_play_en_' + index + '_' + audio_english.voice_en_type;
+				var play_id = '#audio_play_en_' + index + '_' + this.voice_en_type;
 				var play_audio = $(play_id);
 				var play_en = play_audio.attr('en');
-				if (!play_audio.length > 0 || play_en != show_en) {
+				/*if (!play_audio.length > 0 || play_en != show_en) {
 					if(init.isPC) this.voice_en_load();
 					return;
-				}
+				}*/
 
 				$('#div_word>.list-group>.list-group-item').css('background-color', '#fff');
 				$('#div_word>.list-group:nth-child(' + index + ')>.list-group-item').css('background-color', '#ccc');
 				try{
-					if(init.isPC) $(play_id)[0].play();
-					else this.play_word($('[index="' + index + '"]').text(), this.voice_en_type, index);
+					$('.voice[data=' + this.voice_en_type + '][index=' + index + ']').touch();
+					if(init.isPC) {
+						$(play_id)[0].play();
+						//$('.voice[data=' + this.voice_en_type + '][index=' + index + ']').click();//可行方法
+					} else {
+						/*this.play_word($('a[index=' + index + ']').text(), this.voice_en_type, index);*/
+						$('.voice[data=' + this.voice_en_type + '][index=' + index + ']').touch();
+					}
 				} catch (e) {}
 			}
 		},
