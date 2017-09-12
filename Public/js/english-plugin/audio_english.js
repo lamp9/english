@@ -52,21 +52,19 @@ var audio_english = {
 				var play_id = '#audio_play_en_' + index + '_' + this.voice_en_type;
 				var play_audio = $(play_id);
 				var play_en = play_audio.attr('en');
-				/*if (!play_audio.length > 0 || play_en != show_en) {
-					if(init.isPC) this.voice_en_load();
-					return;
-				}*/
 
 				$('#div_word>.list-group>.list-group-item').css('background-color', '#fff');
 				$('#div_word>.list-group:nth-child(' + index + ')>.list-group-item').css('background-color', '#ccc');
 				try{
-					$('.voice[data=' + this.voice_en_type + '][index=' + index + ']').touch();
 					if(init.isPC) {
+						//可行方法
 						$(play_id)[0].play();
-						//$('.voice[data=' + this.voice_en_type + '][index=' + index + ']').click();//可行方法
+						//$('.voice[data=' + this.voice_en_type + '][index=' + index + ']').click();
+						//this.play_word($('a[index=' + index + ']').text(), this.voice_en_type, index);
 					} else {
-						/*this.play_word($('a[index=' + index + ']').text(), this.voice_en_type, index);*/
-						$('.voice[data=' + this.voice_en_type + '][index=' + index + ']').touch();
+						//可行方法
+						this.play_word($('a[index=' + index + ']').text(), this.voice_en_type, index);
+						//$('.voice[data=' + this.voice_en_type + '][index=' + index + ']').touch();//待定
 					}
 				} catch (e) {}
 			}
@@ -152,16 +150,9 @@ var audio_english = {
 				$(this).css('color', '#000');
 			});
 		},
-	play_word_click://点击单词音标时触发播放
-		function (obj) {
-			var en = $(obj).parent().find('.en');
-			var index = en.attr('index');
-			var type = $(obj).attr('data');
-			this.play_word(en.text(), type, index);
-		},
 
-	play_word://点击时播放
-		function (word, type, index) {
+	play_word://点击单词音标时触发播放
+		function (type, index) {
 			var id = '#audio_play_en_' + index + '_' + type;
 			var obj = $(id);
 			var objSrc = $(id + '> source');

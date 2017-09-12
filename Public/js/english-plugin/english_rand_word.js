@@ -12,9 +12,9 @@ var english_rand_word = {
 			var html = '';
 			var data_len = this.data.length;
 			if (count >= data_len) count = data_len;
-			var clickType = (init.isPC) ? 'onclick' : 'touchstart';
-			clickType = 'ontouchstart';
+			var clickType = (init.isPC) ? 'onclick' : 'ontouchstart';
 			for (var i = 0; i < count; i++) {
+				var index = i + 1;
 				var obj = this.data_tmp[this.data_tmp.length] = this.data[i];
 				delete this.data[i];
 
@@ -24,8 +24,9 @@ var english_rand_word = {
 				html += '<h4 class="list-group-item-heading">';
 
 				html += '<a href="' + common.sprintf(this.en_search_from, obj.en) + '" target="_blank" class=en index=' + (i + 1) + '>' + obj.en + '</a>&nbsp;&nbsp;';
-				html += '<span class=voice ' + clickType + '="audio_english.play_word_click(this);" data=1 index=' + (i + 1) + '>' + en_symbol[0] + '</span>&nbsp;&nbsp;';
-				html += '<span class=voice ' + clickType + '="audio_english.play_word_click(this);" data=2 index=' + (i + 1) + '>' + en_symbol[1] + '</span>';
+				html += '<span class=voice ' + clickType + '="audio_english.play_word(1, ' + index + ');" data=1 index=' + index + '>' + en_symbol[0] + '</span>&nbsp;&nbsp;';
+				html += '<span class=voice ' + clickType + '="audio_english.play_word(2, ' + index + ');" data=2 index=' + index + '>' + en_symbol[1] + '</span>';
+
 				html += '</h4>';
 				html += '<p class="list-group-item-text">' + obj.cn + '</p></div></div>';
 			}

@@ -116,10 +116,9 @@ var book_chapter_test = {
 	play_word_set_init : function (){
 		$('.voice').click(function(){
 			var en = $(this);
-			var word = en.attr('data');
 			var type = en.attr('type');
 			var index = en.attr('index');
-			audio_english.play_word(word, type, index);
+			audio_english.play_word(type, index);
 		});
 		$('.voice').hover(function(){
 			$(this).css('color', '#ccc');

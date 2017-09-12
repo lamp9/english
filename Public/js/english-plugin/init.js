@@ -3,7 +3,7 @@ var init = {
 	div_word:$('#div_word'),//放置单词的容器
 	isPC:'',
 	init:function(){
-		this.isPC = common.IsPC;
+		this.isPC = common.IsPC();
 		this.show_set_tips_init();
 		english_rand_word.data_init();
 

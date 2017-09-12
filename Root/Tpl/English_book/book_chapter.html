@@ -44,7 +44,7 @@
 </div>
 <div id="voice_en_load_tmp" style="display:none;"></div>
 <script src="__PUBLIC__/js/rand_word/common.js"></script>
-<script src="__PUBLIC__/js/rand_word/audio_en.js"></script>
+<script src="__PUBLIC__/js/rand_word/audio_english.js"></script>
 <script>
 <php>$config = get_config();
 $url = $config['search_word_voice_from_url'];
@@ -109,7 +109,7 @@ function play_word_set_for_chapter(){
 		var word = en.attr('data');
 		var type = en.attr('type');
 		var index = en.attr('index');
-		play_word(word, type, index);
+		audio_english.play_word(type, index);
 	});
 	$('.en').hover(function(){
 		$(this).css('color', '#ccc');
