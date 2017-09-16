@@ -19,7 +19,7 @@ var english_rand_word = {
 				delete this.data[i];
 
 				var en_symbol = obj.symbol.split('$$');
-				html += '<div class="list-group" onclick="audio_english.play_word(' + audio_english.voice_en_type + ', ' + index + ')">';
+				html += '<div class="list-group" ' + clickType + '="audio_english.play_word(' + audio_english.voice_en_type + ', ' + index + ')">';
 				html += '<div href="#" class="list-group-item">';
 				html += '<h4 class="list-group-item-heading">';
 
