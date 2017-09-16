@@ -20,55 +20,55 @@ var audio_english = {
 
 	voice_en_play://自动播放语音方法
 		function (time_now, time_total, state) {
-			if (this.voice_en == 1) {
-				var count = time_reset.count_init;
-				var data_len = english_rand_word.data.length;
-				if (data_len == 0) count = $('#div_word>.list-group').length;
-				if (state == 'pause') {
-					if (time_now == 0) return;
-					if (this.time_en_play_second_switch == 1) {
-						var second = this.time_en_play_second;
-						var total_second = count * second;
-						if (time_now > total_second + this.time_en_play_second_delay) return;
-						time_now = time_now - this.time_en_play_second_delay;
-						if(time_now <= 0) return;
-					} else {
-						var second = parseInt(time_total / count);
-					}
-
-					if (time_now % second == 0) var index = time_now / second;
-					else return;
+			var count = time_reset.count_init;
+			var data_len = english_rand_word.data.length;
+			if (data_len == 0) count = $('#div_word>.list-group').length;
+			if (state == 'pause') {
+				if (time_now == 0) return;
+				if (this.time_en_play_second_switch == 1) {
+					var second = this.time_en_play_second;
+					var total_second = count * second;
+					if (time_now > total_second + this.time_en_play_second_delay) return;
+					time_now = time_now - this.time_en_play_second_delay;
+					if(time_now <= 0) return;
 				} else {
-					if (this.voice_en_pause != 1) return;
-					this.current_second++;
-					var total_second = (this.time_en_play_second_switch == 1) ? count * this.time_en_play_second : count * 2;
-					var second = parseInt(total_second / count);
-					if (this.current_second % second == 0) var index = this.current_second / second;
-					else return;
-					if (this.current_second >= total_second) this.current_second = 0;
+					var second = parseInt(time_total / count);
 				}
-				if (index > count) return;
 
-				try {
-					var show_en = $('#div_word>.list-group:nth-child(' + index + ')>.list-group-item>h4>a').text();
-					var play_id = '#audio_play_en_' + index + '_' + this.voice_en_type;
-					var play_audio = $(play_id);
-					var play_en = play_audio.attr('en');
+				if (time_now % second == 0) var index = time_now / second;
+				else return;
+			} else {
+				if (this.voice_en_pause != 1) return;
+				this.current_second++;
+				var total_second = (this.time_en_play_second_switch == 1) ? count * this.time_en_play_second : count * 2;
+				var second = parseInt(total_second / count);
+				if (this.current_second % second == 0) var index = this.current_second / second;
+				else return;
+				if (this.current_second >= total_second) this.current_second = 0;
+			}
+			if (index > count) return;
 
-					var scrollElement = $('#div_word>.list-group:nth-child(' + index + ')>.list-group-item');
-					$('#div_word>.list-group>.list-group-item').css('background-color', '#fff');
-					scrollElement.css('background-color', '#ccc');
+			try {
+				var show_en = $('#div_word>.list-group:nth-child(' + index + ')>.list-group-item>h4>a').text();
+				var play_id = '#audio_play_en_' + index + '_' + this.voice_en_type;
+				var play_audio = $(play_id);
+				var play_en = play_audio.attr('en');
+
+				var scrollElement = $('#div_word>.list-group:nth-child(' + index + ')>.list-group-item');
+				$('#div_word>.list-group>.list-group-item').css('background-color', '#fff');
+				scrollElement.css('background-color', '#ccc');
 
 
-					var elementTop = scrollElement.offset().top - $(window).scrollTop();//播放元素离显示区域顶端的高度
-					var winHeight = $(window).height();
-					var positionPer = elementTop / winHeight;
-					if(positionPer > 0.7){
-						$('html, body').animate({
-							scrollTop: scrollElement.offset().top
-						}, 650);
-					}
+				var elementTop = scrollElement.offset().top - $(window).scrollTop();//播放元素离显示区域顶端的高度
+				var winHeight = $(window).height();
+				var positionPer = elementTop / winHeight;
+				if(positionPer > 0.7 || positionPer < 0){
+					$('html, body').animate({
+						scrollTop: scrollElement.offset().top
+					}, 650);
+				}
 
+				if(this.voice_en == 1){
 					if(init.isPC) {
 						//可行方法
 						$(play_id)[0].play();
@@ -79,8 +79,8 @@ var audio_english = {
 						this.play_word($('a[index=' + index + ']').text(), this.voice_en_type, index);
 						//$('.voice[data=' + this.voice_en_type + '][index=' + index + ']').touch();//待定
 					}
-				} catch (e) {}
-			}
+				}
+			} catch (e) {}
 		},
 
 	voice_en_type_set://语音类型设置
@@ -137,7 +137,6 @@ var audio_english = {
 
 	voice_en_load://加载语音
 		function () {
-			if (this.voice_en != 1) return;
 			var div_voice_en = $('#voice_en_load');
 			div_voice_en.empty();
 			var div_en = $('#div_word>.list-group>.list-group-item>h4>a');
@@ -147,10 +146,11 @@ var audio_english = {
 				var otherType = (1 == audio_english.voice_en_type) ? 2 : 1;
 				var idPre = 'audio_play_en_' + (index + 1) + '_';
 
-				var url = common.sprintf(audio_english.voice_en_url, obj.text(), audio_english.voice_en_type);
+				var url = urlLoad = common.sprintf(audio_english.voice_en_url, obj.text(), audio_english.voice_en_type);
+				if (this.voice_en != 1) url = '';
 				var urlOther = common.sprintf(audio_english.voice_en_url, obj.text(), otherType);
-				html += '<audio id="' + idPre + audio_english.voice_en_type + '" en="' + obj.text() + '"><source src="' + url + '" type="audio/mpeg"></audio>';
-				html += '<audio id="' + idPre + otherType + '" en="' + obj.text() + '"><source src="" type="audio/mpeg" srcLoad="' + urlOther + '"></audio>';
+				html += '<audio id="' + idPre + audio_english.voice_en_type + '" en="' + obj.text() + '"><source src="' + url + '" srcLoad="' + urlLoad + '" type="audio/mpeg"></audio>';
+				html += '<audio id="' + idPre + otherType + '" en="' + obj.text() + '"><source src="" srcLoad="' + urlOther + '" type="audio/mpeg"></audio>';
 			});
 			div_voice_en.html(html);
 		},
@@ -167,6 +167,22 @@ var audio_english = {
 	play_word://点击单词音标时触发播放
 		function (type, index) {
 			var id = '#audio_play_en_' + index + '_' + type;
+			var obj = $(id);
+			var objSrc = $(id + '> source');
+
+			if('' == objSrc.attr('src')){
+				var src = objSrc.attr('srcLoad');
+				obj.empty();
+				obj.append('<source src="' + src + '" type="audio/mpeg">');
+			}
+			try{
+				obj[0].play();
+			} catch (e) {}
+
+			window.event.stopPropagation();
+		},
+	play_word_current://播放当前单词
+		function(){
 			var obj = $(id);
 			var objSrc = $(id + '> source');
 

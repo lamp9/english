@@ -19,11 +19,11 @@ var english_rand_word = {
 				delete this.data[i];
 
 				var en_symbol = obj.symbol.split('$$');
-				html += '<div class="list-group">';
+				html += '<div class="list-group" onclick="audio_english.play_word(' + audio_english.voice_en_type + ', ' + index + ')">';
 				html += '<div href="#" class="list-group-item">';
 				html += '<h4 class="list-group-item-heading">';
 
-				html += '<a href="' + common.sprintf(this.en_search_from, obj.en) + '" target="_blank" class=en index=' + (i + 1) + '>' + obj.en + '</a>&nbsp;&nbsp;';
+				html += '<a href="' + common.sprintf(this.en_search_from, obj.en) + '" target="_blank" class=en index=' + index + '>' + obj.en + '</a>&nbsp;&nbsp;';
 				html += '<span class=voice ' + clickType + '="audio_english.play_word(1, ' + index + ');" data=1 index=' + index + '>' + en_symbol[0] + '</span>&nbsp;&nbsp;';
 				html += '<span class=voice ' + clickType + '="audio_english.play_word(2, ' + index + ');" data=2 index=' + index + '>' + en_symbol[1] + '</span>';
 
