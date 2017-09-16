@@ -31,7 +31,7 @@ var audio_english = {
 						var total_second = count * second;
 						if (time_now > total_second + this.time_en_play_second_delay) return;
 						time_now = time_now - this.time_en_play_second_delay;
-						if (time_now == 0) return;
+						if(time_now <= 0) return;
 					} else {
 						var second = parseInt(time_total / count);
 					}

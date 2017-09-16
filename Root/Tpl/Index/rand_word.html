@@ -58,42 +58,73 @@
 							<div class="tab-content">
 								<div class="tab-pane active" id="play_delay">
 									<p>
+									<form role="form">
 									<div class="col-md-12 column">
-										<div class="input-group">
-											<span class="input-group-addon"><label><input type="checkbox" name="time_en_play_second_switch"> 播放间隔</label></span>
-											<input type="text" class="form-control" name="time_en_play_second" placeholder="秒数" onkeyup="this.value=this.value.replace(/\D/g,'')" onafterpaste="this.value=this.value.replace(/\D/g,'')">
-											<span class="input-group-addon">推迟秒数</span>
-											<input type="text" name="time_en_play_second_delay" class="form-control" placeholder="秒数" onkeyup="this.value=this.value.replace(/\D/g,'')" onafterpaste="this.value=this.value.replace(/\D/g,'')"/>
-											<span class="input-group-addon btn" onClick="audio_english.time_en_play_second_set(true);">SET</span>
+										<div class="form-group">
+											<label>间隔秒数：</label><input type="text" class="form-control" name="time_en_play_second" placeholder="秒数" onkeyup="this.value=this.value.replace(/\D/g,'')" onafterpaste="this.value=this.value.replace(/\D/g,'')" />
 										</div>
+										<div class="form-group">
+											<label>推迟秒数：</label><input type="text" class="form-control" name="time_en_play_second_delay" placeholder="秒数" onkeyup="this.value=this.value.replace(/\D/g,'')" onafterpaste="this.value=this.value.replace(/\D/g,'')"/>
+										</div>
+
+										<div class="checkbox">
+											<label><input type="checkbox" name="time_en_play_second_switch" /> 播放间隔</label>
+										</div>
+										<button type="button" class="btn btn-default" onClick="audio_english.time_en_play_second_set(true);">SET</button>
 									</div>
+									</form>
 									</p>
 								</div>
 								<div class="tab-pane" id="play_word_count">
 									<p>
+									<form role="form">
 									<div class="col-md-12 column">
-										<div class="input-group">
-											<span class="input-group-addon">单词数</span>
-											<input type="text" width="6" class="form-control" name="count" placeholder="秒数" onkeyup="this.value=this.value.replace(/\D/g,'');$('[name=time]').val(parseInt(this.value)*parseInt(audio_english.time_en_play_second)+parseInt(audio_english.time_en_play_second_delay));" onafterpaste="this.value=this.value.replace(/\D/g,'')">
-											<span class="input-group-addon">秒数</span>
-											<input type="text" width="6" name="time" class="form-control" placeholder="秒数" onkeyup="this.value=this.value.replace(/\D/g,'')" onafterpaste="this.value=this.value.replace(/\D/g,'')"/>
-											<span class="input-group-addon btn" onClick="time_reset.time_reset(true);">SET</span>
+										<div class="form-group">
+											<label>单词数：</label><input type="text" class="form-control" name="count" placeholder="秒数" onkeyup="this.value=this.value.replace(/\D/g,'');$('[name=time]').val(parseInt(this.value)*parseInt(audio_english.time_en_play_second)+parseInt(audio_english.time_en_play_second_delay)+1);" onafterpaste="this.value=this.value.replace(/\D/g,'')"/>
 										</div>
+										<div class="form-group">
+											<label>播放秒数：</label><input type="text" class="form-control" name="time" placeholder="秒数" onkeyup="this.value=this.value.replace(/\D/g,'')" onafterpaste="this.value=this.value.replace(/\D/g,'')"/>
+										</div>
+										<button type="button" class="btn btn-default" onClick="time_reset.time_reset(true);">SET</button>
 									</div>
+									</form>
 									</p>
 								</div>
 								<div class="tab-pane" id="play_set">
 									<p>
 									<div class="col-md-12 column">
-										<ul class="list-inline list-unstyled" id="on_off_button">
-											<li><a href="javascript:;" onclick="audio_english.voice_en_type_set(true);" title='Voice_en_type'></a></li>
-											<li><a href="javascript:;" onclick="audio_english.voice_en_set(true);" title='Voice_en'>EN <i></i></a></li>
-											<li><a href="javascript:;" onclick="audio_english.voice_en_pause_set(true);" title='Voice_en_pause'>EN_Pause <i></i></a></li>
-											<li><a href="javascript:;" onclick="audio_voice_tips.voice_tips_set(true);" title='Voice_tips'><i class="fa fa-bell-o" aria-hidden="true"></i> <i></i></a></li>
-											<li><a href="javascript:;" onclick="light_tips.light_tips_set(true);" title='Light_tips'><i class="fa fa-lightbulb-o"></i> <i></i></a></li>
-											<li><a href="javascript:;" onClick="location.reload();" title='Refresh'><i class="fa fa-refresh"></i></a></li>
-											<li><a href="/" title='Back'><i class="fa fa-times"></i></a></li>
-										</ul>
+										<table class="table">
+											<tbody>
+											<tr>
+												<td>英/美式</td>
+												<td><a href="javascript:;" onclick="audio_english.voice_en_type_set(true);" title='Voice_en_type'></a></td>
+											</tr>
+											<tr>
+												<td>播放开关(总开关)</td>
+												<td><a href="javascript:;" onclick="audio_english.voice_en_set(true);" title='Voice_en'><i></i></a></td>
+											</tr>
+											<tr>
+												<td>播放开关(暂停时循环)</td>
+												<td><a href="javascript:;" onclick="audio_english.voice_en_pause_set(true);" title='Voice_en_pause'><i></i></a></td>
+											</tr>
+											<tr>
+												<td>下一组提示(声音)</td>
+												<td><a href="javascript:;" onclick="audio_voice_tips.voice_tips_set(true);" title='Voice_tips'><i class="fa fa-bell-o" aria-hidden="true"></i> <i></i></a></td>
+											</tr>
+											<tr>
+												<td>下一组提示(背景)</td>
+												<td><a href="javascript:;" onclick="light_tips.light_tips_set(true);" title='Light_tips'><i class="fa fa-lightbulb-o"></i> <i></i></a></td>
+											</tr>
+											<tr>
+												<td>刷新</td>
+												<td><a href="javascript:;" onClick="location.reload();" title='Refresh'><i class="fa fa-refresh"></i></a></td>
+											</tr>
+											<tr>
+												<td>返回</td>
+												<td><a href="/" title='Back'><i class="fa fa-times"></i></a></td>
+											</tr>
+											</tbody>
+										</table>
 									</div>
 									</p>
 								</div>
