@@ -48,14 +48,27 @@ var audio_english = {
 					if (this.current_second >= total_second) this.current_second = 0;
 				}
 				if (index > count) return;
-				var show_en = $('#div_word>.list-group:nth-child(' + index + ')>.list-group-item>h4>a').text();
-				var play_id = '#audio_play_en_' + index + '_' + this.voice_en_type;
-				var play_audio = $(play_id);
-				var play_en = play_audio.attr('en');
 
-				$('#div_word>.list-group>.list-group-item').css('background-color', '#fff');
-				$('#div_word>.list-group:nth-child(' + index + ')>.list-group-item').css('background-color', '#ccc');
-				try{
+				try {
+					var show_en = $('#div_word>.list-group:nth-child(' + index + ')>.list-group-item>h4>a').text();
+					var play_id = '#audio_play_en_' + index + '_' + this.voice_en_type;
+					var play_audio = $(play_id);
+					var play_en = play_audio.attr('en');
+
+					var scrollElement = $('#div_word>.list-group:nth-child(' + index + ')>.list-group-item');
+					$('#div_word>.list-group>.list-group-item').css('background-color', '#fff');
+					scrollElement.css('background-color', '#ccc');
+
+
+					var elementTop = scrollElement.offset().top - $(window).scrollTop();//播放元素离显示区域顶端的高度
+					var winHeight = $(window).height();
+					var positionPer = elementTop / winHeight;
+					if(positionPer > 0.7){
+						$('html, body').animate({
+							scrollTop: scrollElement.offset().top
+						}, 650);
+					}
+
 					if(init.isPC) {
 						//可行方法
 						$(play_id)[0].play();

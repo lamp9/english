@@ -10,12 +10,14 @@ var time_go = {
 					if (this.time_set == 1) audio_voice_tips.voice_tips_play();
 				}
 
-				if (this.time_set == 0) {
-					this.data_reset();
-				} else if (this.time_set >= time_reset.time_set_tmp) {
-					this.time_set = 0;
+				if (this.time_set >= time_reset.time_set_tmp || this.time_set == 0) {
+					$('html, body').animate({
+						scrollTop: $('#div_word').offset().top
+					}, 10);
 					this.data_reset();
 				}
+				if (this.time_set >= time_reset.time_set_tmp) this.time_set = 0;
+
 				this.time_set++;
 			}
 			audio_english.voice_en_play(this.time_set, time_reset.time_set_tmp, state);
