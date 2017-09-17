@@ -59,6 +59,12 @@ var english_rand_word = {
 			common.GetRandomArr(dataReturn);
 			english_rand_word.data = dataReturn;
 			setTimeout('$("#en_load_animation").css("display", "none");', 1000);
+			if(!init.isPC){
+				var en_play_current = $("#en_play_current");
+				en_play_current.show();
+				var elem = document.querySelector('#en_play_current');
+				var draggie = new Draggabilly( elem, {});
+			}
 		},
 };
 

@@ -28,7 +28,10 @@
 	</div>
 	<div id="voice_en_load" style="display:none;"></div>
 </div>
+<!--显示初始化加载状态loading......-->
 <div id="en_load_animation"></div>
+<!--移动设备播放当前单词按钮-->
+<div id="en_play_current" ontouchstart="audio_english.play_word_current();"><p>PLAY</p></div>
 
 <div class="modal fade" id="set-container" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
 	<div class="modal-dialog">
@@ -116,6 +119,10 @@
 												<td><a href="javascript:;" onclick="light_tips.light_tips_set(true);" title='Light_tips'><i class="fa fa-lightbulb-o"></i> <i></i></a></td>
 											</tr>
 											<tr>
+												<td>播放自滚动</td>
+												<td><a href="javascript:;" onclick="scroll_en_list.set(true);" title='Scroll_en_list'> <i></i></a></td>
+											</tr>
+											<tr>
 												<td>刷新</td>
 												<td><a href="javascript:;" onClick="location.reload();" title='Refresh'><i class="fa fa-refresh"></i></a></td>
 											</tr>
@@ -194,17 +201,41 @@ body{background-color: #303030;}
 	background:-moz-linear-gradient(top, ＃3a70a4,＃3a70a3);
 	filter:progid:DXImageTransform.Microsoft.gradient(startColorstr=＃3a70a4,endColorstr=＃3a70a3,grandientType=1);
 }
+
+#en_play_current{
+	position: fixed;
+	bottom: 50px;
+	right: 10px;
+	display: none;
+	width: 50px;
+	height: 50px;
+	background-color: #3a70a4;z-index: 1000;
+	filter:alpha(opacity=30);  /* ie 有效*/
+	-moz-opacity:0.3; /* Firefox  有效*/
+	opacity: 0.3; /* 通用，其他浏览器  有效*/
+	color: #ffffff;
+	border-radius:50%;
+}
+#en_play_current>p{
+	text-align: center;
+	line-height: 50px;
+	height:50px;
+}
 </style>
 <php>$config = get_config();
 	$url = $config['search_word_voice_from_url'];
 	$search = $config['search_word_from_url'];
 </php>
 
+<!--拖放元素插件-->
+<script src="__PUBLIC__/js/jquery-plugin/draggabilly.pkgd.min.js"></script>
+
 <script src="__PUBLIC__/js/english-plugin/init.js"></script>
 <script src="__PUBLIC__/js/english-plugin/common.js"></script>
 <script src="__PUBLIC__/js/english-plugin/audio_english.js"></script>
 <script src="__PUBLIC__/js/english-plugin/audio_voice_tips.js"></script>
 <script src="__PUBLIC__/js/english-plugin/light_tips.js"></script>
+<script src="__PUBLIC__/js/english-plugin/scroll_en_list.js"></script>
 <script src="__PUBLIC__/js/english-plugin/english_rand_word.js"></script>
 <script src="__PUBLIC__/js/english-plugin/time_go.js"></script>
 <script src="__PUBLIC__/js/english-plugin/time_reset.js"></script>

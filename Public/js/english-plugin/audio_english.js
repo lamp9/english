@@ -5,6 +5,7 @@ var audio_english = {
 	cookies_time_en_play_second_switch: 'time_en_play_second_switch',//语音播放间隔开启cookie-key
 	cookies_time_en_play_second: 'time_en_play_second',//语音播放间隔秒数cookie-key
 	cookies_time_en_play_second_delay: 'time_en_play_second_delay',//语音播放开始时秒数推迟cookie-key
+	play_id: '',//当前播放单词ID
 
 	current_second: 0,//暂停时的秒数
 	voice_en_url:'',//语音播放url
@@ -51,22 +52,14 @@ var audio_english = {
 			try {
 				var show_en = $('#div_word>.list-group:nth-child(' + index + ')>.list-group-item>h4>a').text();
 				var play_id = '#audio_play_en_' + index + '_' + this.voice_en_type;
+				this.play_id = play_id;
 				var play_audio = $(play_id);
 				var play_en = play_audio.attr('en');
 
 				var scrollElement = $('#div_word>.list-group:nth-child(' + index + ')>.list-group-item');
 				$('#div_word>.list-group>.list-group-item').css('background-color', '#fff');
 				scrollElement.css('background-color', '#ccc');
-
-
-				var elementTop = scrollElement.offset().top - $(window).scrollTop();//播放元素离显示区域顶端的高度
-				var winHeight = $(window).height();
-				var positionPer = elementTop / winHeight;
-				if(positionPer > 0.7 || positionPer < 0){
-					$('html, body').animate({
-						scrollTop: scrollElement.offset().top
-					}, 650);
-				}
+				scroll_en_list.scroll(scrollElement);//是否滚动列表
 
 				if(this.voice_en == 1){
 					if(init.isPC) {
@@ -147,7 +140,7 @@ var audio_english = {
 				var idPre = 'audio_play_en_' + (index + 1) + '_';
 
 				var url = urlLoad = common.sprintf(audio_english.voice_en_url, obj.text(), audio_english.voice_en_type);
-				if (this.voice_en != 1) url = '';
+				if (audio_english.voice_en != 1) url = '';
 				var urlOther = common.sprintf(audio_english.voice_en_url, obj.text(), otherType);
 				html += '<audio id="' + idPre + audio_english.voice_en_type + '" en="' + obj.text() + '"><source src="' + url + '" srcLoad="' + urlLoad + '" type="audio/mpeg"></audio>';
 				html += '<audio id="' + idPre + otherType + '" en="' + obj.text() + '"><source src="" srcLoad="' + urlOther + '" type="audio/mpeg"></audio>';
@@ -202,8 +195,9 @@ var audio_english = {
 		},
 	play_word_current://播放当前单词
 		function(){
-			var obj = $(id);
-			var objSrc = $(id + '> source');
+			if('' == this.play_id) return;
+			var obj = $(this.play_id);
+			var objSrc = $(this.play_id + '> source');
 
 			if('' == objSrc.attr('src')){
 				var src = objSrc.attr('srcLoad');

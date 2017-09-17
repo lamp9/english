@@ -21,6 +21,9 @@ var init = {
 		light_tips.init();
 		light_tips.light_tips_set(false);
 
+		scroll_en_list.init();
+		scroll_en_list.set(false);
+
 		time_reset.init();
 		time_reset.time_reset(false);
 
