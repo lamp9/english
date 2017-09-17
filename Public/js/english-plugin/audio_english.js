@@ -155,6 +155,25 @@ var audio_english = {
 			div_voice_en.html(html);
 		},
 
+	voice_en_load_for_chapter://加载语音
+		function () {
+			var div_voice_en = $('#voice_en_load');
+			div_voice_en.empty();
+			var div_en = book_chapter_obj.obj.find('tr>td>a[target=_blank]');
+			var html = '';
+			div_en.each(function (index) {
+				var obj = $(this);
+				var idPre = 'audio_play_en_' + index + '_';
+
+				var url = common.sprintf(audio_english.voice_en_url, obj.text(), 1);
+				var url2 = common.sprintf(audio_english.voice_en_url, obj.text(), 2);
+
+				html += '<audio id="' + idPre + '1" en="' + obj.text() + '"><source src="" srcLoad="' + url + '" type="audio/mpeg"></audio>';
+				html += '<audio id="' + idPre + '2" en="' + obj.text() + '"><source src="" srcLoad="' + url2 + '" type="audio/mpeg"></audio>';
+			});
+			div_voice_en.html(html);
+		},
+
 	play_word_set://加载语音后的html元素重新定义
 		function () {
 			$('.list-group span').hover(function () {
@@ -193,6 +212,22 @@ var audio_english = {
 			}
 			try{
 				obj[0].play();
+			} catch (e) {}
+		},
+
+	play_word_common://常规通用播放
+		function(en, type, index){
+			console.info(333);
+			var div_voice_en = $('#voice_en_load');
+			var id = 'audio_play_en_' + index + '_' + type;
+
+			var url = common.sprintf(audio_english.voice_en_url, en, type);
+			var html = '<audio id="' + id + '" en="' + en + '"><source src="' + url + '" type="audio/mpeg"></audio>';
+			div_voice_en.append(html);
+
+			try {
+				var obj = $('#' + id);
+				if (obj.length > 0) obj[0].play();
 			} catch (e) {}
 		},
 

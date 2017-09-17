@@ -38,12 +38,13 @@ var book_chapter_test = {
 	checkAnswer : function(index){
 		//判断答案
 		var obj = this.obj[this.index];
-		if(obj.score) return;
+		if(obj.score != null) return;
 		obj.score = (index == this.index) ? true : false;
 		//显示答案
 		$('#showProblem .list-group-item-text').html(this.obj[this.index].cn).css('color', (index == this.index) ? '#000' : '#f00').show();
 	},
 	nextProblem : function(){
+		if(!this.count > 0) return;
 		if(1 == this.testFinish) return;
 		this.index++;
 		if(this.index > this.count - 1){
@@ -53,6 +54,13 @@ var book_chapter_test = {
 			this.submitTest();
 			this.showAnswer();
 		} else {
+			if(0 != this.index){
+				var obj = this.obj[this.index - 1];
+				if(obj.score == null){
+					this.index--;
+					return;
+				}
+			}
 			this.showProblem();
 			this.showProcessButton();
 			this.play_word_set_init();
@@ -114,12 +122,6 @@ var book_chapter_test = {
 		if(this.select_count > this.count) this.select_count = this.count;
 	},
 	play_word_set_init : function (){
-		$('.voice').click(function(){
-			var en = $(this);
-			var type = en.attr('type');
-			var index = en.attr('index');
-			audio_english.play_word(type, index);
-		});
 		$('.voice').hover(function(){
 			$(this).css('color', '#ccc');
 		},function(){

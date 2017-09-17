@@ -22,7 +22,7 @@
 				<table class="table table-hover" style="font-size: 18px;">
 					<thead>
 					<tr>
-						<th></th>
+						<!--<th></th>-->
 						<th>EN</th>
 						<th>SYMBOL</th>
 						<th>CN</th>
@@ -31,7 +31,7 @@
 					<tbody id="english_list">
 					<foreach name='english' item='v'>
 						<tr>
-							<td></td>
+							<!--<td></td>-->
 							<td><a href="<{$v.en|sprintf=$search,###}>"><{$v.en}></a></td>
 							<td><{$v.symbol}></td>
 							<td><{$v.cn}></td>
@@ -46,7 +46,7 @@
 		</div>
 	</div>
 </div>
-<div id="voice_en_load_tmp" style="display:none;"></div>
+<div id="voice_en_load" style="display:none;"></div>
 <script src="__PUBLIC__/js/english-plugin/common.js"></script>
 <script src="__PUBLIC__/js/english-plugin/audio_english.js"></script>
 <script src="__PUBLIC__/js/english-plugin/english_rand_word.js"></script>
