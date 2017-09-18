@@ -21,11 +21,10 @@ var audio_english = {
 	},
 
 	voice_en_load_init://加载单词语音
-		function(){
+		function(data){
 			var div_voice_en = $('#voice_en_load');
 			div_voice_en.empty();
 
-			var data = english_rand_word.data;
 			for(var i = 0; i < data.length; i++){
 				var obj = data[i];
 				var en = obj.en;
@@ -158,7 +157,6 @@ var audio_english = {
 	voice_en_load_item://加载单个音频
 		function(id, type){
 			var id = this.voice_en_id_get(id, type);
-			console.info(id);
 			var obj = $('#' + id);
 			var objSrc = $('#' + id + '> source');
 
@@ -168,25 +166,6 @@ var audio_english = {
 				obj.append('<source src="' + src + '" type="audio/mpeg">');
 			}
 			return obj;
-		},
-
-	voice_en_load_for_chapter://加载语音
-		function () {
-			var div_voice_en = $('#voice_en_load');
-			div_voice_en.empty();
-			var div_en = book_chapter_obj.obj.find('tr>td>a[target=_blank]');
-			var html = '';
-			div_en.each(function (index) {
-				var obj = $(this);
-				var idPre = 'audio_play_en_' + index + '_';
-
-				var url = common.sprintf(audio_english.voice_en_url, obj.text(), 1);
-				var url2 = common.sprintf(audio_english.voice_en_url, obj.text(), 2);
-
-				html += '<audio id="' + idPre + '1" en="' + obj.text() + '"><source src="" srcLoad="' + url + '" type="audio/mpeg"></audio>';
-				html += '<audio id="' + idPre + '2" en="' + obj.text() + '"><source src="" srcLoad="' + url2 + '" type="audio/mpeg"></audio>';
-			});
-			div_voice_en.html(html);
 		},
 
 	play_word_set://加载语音后的html元素重新定义

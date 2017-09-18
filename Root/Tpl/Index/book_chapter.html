@@ -56,6 +56,7 @@ $(function(){
 	english_rand_word.en_search_from = '<{$search}>';
 	audio_english.voice_en_url = '<{$url}>';
 	book_chapter_obj.init(<php>echo $english_json</php>);
+	audio_english.voice_en_load_init(book_chapter_obj.english_list);
 });
 </script>
 </body>

@@ -11,13 +11,11 @@ var book_chapter_obj = {
 		this.pagesize = 20;
 		this.pagetotal = parseInt(this.count / this.pagesize);
 		if(this.count % this.pagesize > 0) this.pagetotal++;
-
 		this.show_page(1);
 	},
 	show_page : function(page){
 		this.showPagination(page);
 		this.showPageList(page);
-		audio_english.voice_en_load_for_chapter();
 		this.play_word_set_init();
 	},
 	showPagination : function(page){
@@ -41,6 +39,8 @@ var book_chapter_obj = {
 		var html = '';
 		for(var i = 0; i < page_list.length; i++){
 			var en = page_list[i];
+			var enId = en.id;
+			var enIdProperty = audio_english.enIdKey + '=' + enId;
 
 			var style = (en.score === false) ? 'style="color:#f00;"' : '';
 
@@ -49,8 +49,8 @@ var book_chapter_obj = {
 			html += '<td><a href="' + common.sprintf(english_rand_word.en_search_from, en.en) + '" target=_blank>' + en.en + '</a></td>';
 			var symbol = en.symbol.split('$$');
 
-			html += '<td><a href="javascript:;" class=voice index=' + i + ' data="' + en.en + '" type=1>' + symbol[0] + '</a><br>';
-			html += '<a href="javascript:;" class=voice index=' + i + ' data="' + en.en + '" type=2>' + symbol[1] + '</a></td>';
+			html += '<td><a href="javascript:;" class=voice ' + enIdProperty + ' type=1>' + symbol[0] + '</a><br>';
+			html += '<a href="javascript:;" class=voice ' + enIdProperty + ' type=2>' + symbol[1] + '</a></td>';
 			html += '<td>' + en.cn + '</td></tr>';
 		}
 		this.obj.html(html);
@@ -59,8 +59,8 @@ var book_chapter_obj = {
 		$('.voice').on('click', function(){
 			var obj = $(this);
 			var type = obj.attr('type');
-			var index = obj.attr('index');
-			audio_english.play_word(type, index);
+			var id = obj.attr(audio_english.enIdKey);
+			audio_english.play_word(id, type);
 		});
 		$('.voice').hover(function(){
 			$(this).css('color', '#ccc');
