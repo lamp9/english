@@ -11,9 +11,7 @@ var time_go = {
 				}
 
 				if (this.time_set >= time_reset.time_set_tmp || this.time_set == 0) {
-					$('html, body').animate({
-						scrollTop: $('#div_word').offset().top
-					}, 10);
+					scroll_en_list.scrollInit();
 					this.data_reset();
 				}
 				if (this.time_set >= time_reset.time_set_tmp) this.time_set = 0;

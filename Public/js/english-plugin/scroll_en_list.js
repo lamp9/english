@@ -22,15 +22,23 @@ var scroll_en_list = {
 		button.attr('class', vclass);
 	},
 
-	scroll:function(scrollElement){
-		if(1 != this.is_scroll) return;
-		var elementTop = scrollElement.offset().top - $(window).scrollTop();//播放元素离显示区域顶端的高度
-		var winHeight = $(window).height();
-		var positionPer = elementTop / winHeight;
-		if(positionPer > 0.7 || positionPer < 0){
+	scroll://滚动列表
+		function(scrollElement){
+			if(1 != this.is_scroll) return;
+			var elementTop = scrollElement.offset().top - $(window).scrollTop();//播放元素离显示区域顶端的高度
+			var winHeight = $(window).height();
+			var positionPer = elementTop / winHeight;
+			if(positionPer > 0.7 || positionPer < 0){
+				$('html, body').animate({
+					scrollTop: scrollElement.offset().top
+				}, 650);
+			}
+		},
+
+	scrollInit://滚动到顶部
+		function(){
 			$('html, body').animate({
-				scrollTop: scrollElement.offset().top
-			}, 650);
-		}
-	},
+				scrollTop: $('#div_word').offset().top
+			}, 10);
+		},
 };

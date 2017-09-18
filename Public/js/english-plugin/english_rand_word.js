@@ -14,18 +14,19 @@ var english_rand_word = {
 			if (count >= data_len) count = data_len;
 			var clickType = (init.isPC) ? 'onclick' : 'ontouchstart';
 			for (var i = 0; i < count; i++) {
-				var index = i + 1;
 				var obj = this.data_tmp[this.data_tmp.length] = this.data[i];
 				delete this.data[i];
 
+				var enId = obj.id;
+				var enIdProperty = audio_english.enIdKey + '=' + enId;
 				var en_symbol = obj.symbol.split('$$');
-				html += '<div class="list-group" ' + clickType + '="audio_english.play_word(' + audio_english.voice_en_type + ', ' + index + ')">';
+				html += '<div class="list-group" ' + clickType + '="audio_english.play_word(' + enId + ', ' + audio_english.voice_en_type + ')" ' + enIdProperty + '>';
 				html += '<div href="#" class="list-group-item">';
 				html += '<h4 class="list-group-item-heading">';
 
-				html += '<a href="' + common.sprintf(this.en_search_from, obj.en) + '" target="_blank" class=en index=' + index + '>' + obj.en + '</a>&nbsp;&nbsp;';
-				html += '<span class=voice ' + clickType + '="audio_english.play_word(1, ' + index + ');" data=1 index=' + index + '>' + en_symbol[0] + '</span>&nbsp;&nbsp;';
-				html += '<span class=voice ' + clickType + '="audio_english.play_word(2, ' + index + ');" data=2 index=' + index + '>' + en_symbol[1] + '</span>';
+				html += '<a href="' + common.sprintf(this.en_search_from, obj.en) + '" target="_blank" class=en ' + enIdProperty + '>' + obj.en + '</a>&nbsp;&nbsp;';
+				html += '<span class=voice ' + clickType + '="audio_english.play_word(' + enId + ', 1);" type=1 ' + enIdProperty + '>' + en_symbol[0] + '</span>&nbsp;&nbsp;';
+				html += '<span class=voice ' + clickType + '="audio_english.play_word(' + enId + ', 2);" type=2 ' + enIdProperty + '>' + en_symbol[1] + '</span>';
 
 				html += '</h4>';
 				html += '<p class="list-group-item-text">' + obj.cn + '</p></div></div>';

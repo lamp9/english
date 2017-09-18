@@ -12,6 +12,7 @@ var init = {
 		audio_voice_tips.voice_tips_set(false);
 
 		audio_english.init();
+		audio_english.voice_en_load_init();
 		audio_english.voice_en_type_set(false);
 		audio_english.voice_en_set(false);
 		audio_english.voice_en_pause_set(false);
