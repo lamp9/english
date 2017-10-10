@@ -30,7 +30,9 @@ var audio_english = {
 				var en = obj.en;
 
 				var url = common.sprintf(audio_english.voice_en_url, en, 1);
+				url = encodeURI(url);
 				var url2 = common.sprintf(audio_english.voice_en_url, en, 2);
+				url2 = encodeURI(url2);
 
 				var html = '<audio id="' + this.voice_en_id_get(obj.id, 1) + '" en="' + en + '"><source src="" srcLoad="' + url + '" type="audio/mpeg"></audio>';
 				html += '<audio id="' + this.voice_en_id_get(obj.id, 2) + '" en="' + en + '"><source src="" srcLoad="' + url2 + '" type="audio/mpeg"></audio>';
